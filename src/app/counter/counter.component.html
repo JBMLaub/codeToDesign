@@ -1,0 +1,20 @@
+<div class="counter__container">
+  <div class="counter__container--inner">
+    <div class="counter__plus" (click)="counterDown()">
+      <i class="bi bi-dash"></i>
+    </div>
+    <div class="counter__selection" (click)="toggleCounter()">
+      {{ counterSelection }}
+    </div>
+    <div class="counter__minus" (click)="counterUp()">
+      <i class="bi bi-plus"></i>
+    </div>
+  </div>
+  <div class="counter__window" *ngIf="counter === 'isOpen'">
+    <div *ngFor="let size of counterFontsizes">
+      <div class="counter__listItem" (click)="onSelect(size)">
+        {{ size }}
+      </div>
+    </div>
+  </div>
+</div>

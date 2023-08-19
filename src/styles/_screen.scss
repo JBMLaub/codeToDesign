@@ -1,0 +1,41 @@
+.screen{
+    width: 100%;
+    height: 80vh;
+}
+//activeShape
+    .formSquare__handler--topLeft{
+        position: absolute;
+        top:-6px;
+        left:-6px;
+        width:12px; 
+        height:12px;
+        background-color: orange;
+        border-radius: 50%;
+       }
+ .formSquare__handler--topRight {
+     position: absolute;
+     top: -6px;
+     right: -6px;
+     width: 12px;
+     height: 12px;
+     background-color: orange;
+     border-radius: 50%;
+ }
+  .formSquare__handler--bottomRight {
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      width: 12px;
+      height: 12px;
+      background-color: orange;
+      border-radius: 50%;
+  }
+   .formSquare__handler--bottomLeft {
+       position: absolute;
+       bottom: -6px;
+       left: -6px;
+       width: 12px;
+       height: 12px;
+       background-color: orange;
+       border-radius: 50%;
+   }

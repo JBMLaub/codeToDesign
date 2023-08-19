@@ -1,0 +1,69 @@
+.nav__button{
+    margin-right:5px;  
+    padding: 5px;
+    border:1px solid black;
+    font-size: 16px;
+    background-color: white;
+    cursor:pointer
+}
+.isActive{
+    background-color: orange;
+}
+
+
+//second  nav
+.navMenues{
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 47px;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid black
+}
+.nav__menu {
+    border-right: 1px solid black8;
+}
+.nav__menu:last-child {
+    border-right: none;
+}
+//align text
+.alignText{
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+        //tesxtStyle
+ .textStyle {
+     display: flex;
+     margin-left: 15px;
+     cursor: pointer;
+     font-size: 18px; 
+     .bold {
+         font-weight: bold;
+     } 
+     .italics {
+         margin-left: 5px;
+         font-style: italic;
+     } 
+     .underline {
+         margin-left: 5px;
+         text-decoration: underline;
+     }
+}
+
+    .icon{
+        margin-left:15px
+    }
+
+    //form
+    .formSquare{
+        width: 34px;
+        height: 34px;
+        border:1px solid black;
+    }
+
+    //Edit
+    .cpEdit{
+        margin-left: 15px;
+    }

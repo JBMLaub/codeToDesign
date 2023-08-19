@@ -1,0 +1,15 @@
+<div class="littleForm__container">
+  <div class="littleForm__selection">{{ littleFormSelection }}</div>
+  <div class="littleForm__toggle">
+    <div *ngIf="windowState === 'open'" (click)="windowState = 'closed'">
+      <i class="bi bi-arrow-up"></i>
+    </div>
+    <div *ngIf="windowState === 'closed'" (click)="windowState = 'open'">
+      <i class="bi bi-arrow-down"></i>
+    </div>
+  </div>
+  <div class="littleForm__window" *ngIf="windowState === 'open'">
+    <div *ngFor="let font of littleFormFonts">{{ font }}</div>
+    <div class="littleForm__selection">{{ littleFormWindow }}</div>
+  </div>
+</div>

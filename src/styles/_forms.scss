@@ -1,0 +1,128 @@
+    .littleForm__container {
+        display: flex;
+        padding: 5px;
+    }
+    .littleForm__selection {
+        cursor: pointer;
+    }
+    .littleForm__toggle {
+        cursor: pointer;
+    }
+    .littleForm__window {
+        background-color: white;
+        position: absolute;
+        width: 150px ;
+        height: 500px;
+        border: 1px solid black;
+        padding: 5px;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+
+    .counter__container {
+        display: flex;
+        margin-left: 5px
+    }
+    .counter__container--inner{
+        display: flex;
+            align-items: center;
+    }
+    .counter__selection {
+        min-width: 22px;
+        border: 1px solid black;
+        padding: 5px;
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+    }
+    .counter__listItem{
+        text-align: center;
+        &:hover{
+            background-color: lightgrey;
+        }
+    }
+    .counter__window {
+        background-color: white;
+        position: absolute;
+        width: 30px;
+        height: auto;
+        border: 1px solid black;
+        padding: 5px;
+        margin-top: 30px;
+        left: 185px;
+        cursor: pointer;
+    }
+    .counter__minus, .counter__plus{
+        cursor: pointer;
+    }
+
+    //colorPalette
+    // .colorPalette__icon{
+    //     width:25px;
+    //     height: 28px;
+    //     background-color: orange;
+    //     border: 1px solid black;
+    //     margin-left: 10px;
+    // }
+    // .colorPalette__popUp{
+    //     width: 200px;
+    //     height: 200px;
+    //     background-color: white;
+    //     position: absolute;
+    //     border: 1px solid #000000;
+    //     margin-left:10px;
+    //     padding:  15px;
+    // }
+    // .popUp__colourSuggestions{
+    //     display: flex;
+    //         flex-wrap: wrap;
+    //     & .popUp__colourSuggestion{
+    //         width: 25px;
+    //         height:25px;
+    //         margin-right: 5px;
+    //             margin-top: 5px;
+    //     }
+    // }
+    // .textLine{
+    //     width: 100%;
+    // }
+    // .popUp__faveColours{
+    //     display: flex;
+    //     flex-wrap: wrap;
+    //     margin-top: 15px;
+    
+    //   &  .popUp__faveColour {
+    //      width: 25px;
+    //      height: 25px;
+    //      margin-right: 5px;
+    //      margin-top: 5px;
+    //     }
+    // }
+
+    .colourPicker__input{
+        width: 25px;
+        height: 25px;
+        margin-left: 15px;  
+        border: 1px solid black;
+        cursor: pointer;
+
+    }
+    .color-picker{
+
+    &   .cp__addColour{
+            font-size: 14px;
+            margin-top: 15px;
+            background-color: white;
+        }
+    }
+    .cpIcon{
+    text-align: center;
+        margin-left: 15px;
+    }
+
+    //align-text
+    .icon-size {
+        font-size:30px;
+     
+    }
+
