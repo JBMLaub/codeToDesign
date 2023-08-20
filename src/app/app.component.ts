@@ -8,7 +8,7 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 export class AppComponent {
   title = 'designToCode';
 
-  // top buttons
+  // topBttons
   isActive = 'Typing'
   navButtons = ["Forms", "Edit", "Typing", "Positioning", "Add Ins", "User"]
   selectedButton(button: any) {
