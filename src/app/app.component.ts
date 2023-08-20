@@ -40,6 +40,8 @@ export class AppComponent {
       this.el.style.boxSizing = 'border-box'
       this.dragState = 'is dragging'
       this.activateForm()
+      this.el.style.top = e.clientY + 'px'
+      this.el.style.left = e.clientX + 'px  '
     } else if (this.dragState === 'is dragging') {
       this.dragState = 'not dragging'
     }

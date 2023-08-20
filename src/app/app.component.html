@@ -27,29 +27,6 @@
   </app-little-form>
   <app-counter [counterFontsizes]="counterWindow"></app-counter>
 
-  <!-- <div clas s="colourPalette">
-    <div class="colorPalette__icon"></div>
-    <div class="colorPalette__popUp">
-      <div class="popUp__colourSuggestions">
-        <div
-          class="popUp__colourSuggestion"
-          *ngFor="let color of colourSuggestions"
-          [style.backgroundColor]="color"
-        ></div>
-      </div>
-      <div class="popUp__faveColours">
-        <div class="textLine">User defined colours</div>
-        <div
-          class="popUp__faveColour"
-          *ngFor="let faveColour of faveColours"
-          [style.backgroundColor]="faveColour"
-        ></div>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- {{ color }} -->
-
   <div
     [style.background]="color"
     [cpAddColorButton]="true"
@@ -73,11 +50,6 @@
   </div>
 </div>
 
-<div class="navMenues" *ngIf="isActive === 'Add Ins'">
-  <div><i class="bi bi-camera icon-size"></i></div>
-  <div class="icon"><i class="bi bi-link icon-size"></i></div>
-</div>
-
 <div class="navMenues" *ngIf="isActive === 'Positioning'">
   <div><i class="bi bi-align-center icon-size"></i></div>
   <div class="icon"><i class="bi bi-align-end icon-size"></i></div>
@@ -85,5 +57,11 @@
   <div class="icon"><i class="bi bi-align-start icon-size"></i></div>
   <div class="icon"><i class="bi bi-align-top icon-size"></i></div>
 </div>
+
+<div class="navMenues" *ngIf="isActive === 'Add Ins'">
+  <div><i class="bi bi-camera icon-size"></i></div>
+  <div class="icon"><i class="bi bi-link icon-size"></i></div>
+</div>
+
 <!-- the screen -->
-<div class="screen">#the screen</div>
+<div class="screen">the screen</div>
