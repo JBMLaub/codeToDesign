@@ -30,6 +30,8 @@ export class AppComponent {
       this.el.style.boxSizing = 'border-box'
       this.el.style.position = 'absolute'
       this.dragState = 'is dragging'
+      this.el.style.top = e.clientY + 'px'
+      this.el.style.left = e.clientX + 'px'
       this.activateForm()
     } else if (this.dragState === 'is dragging') {
       this.dragState = 'not dragging'
@@ -43,7 +45,7 @@ export class AppComponent {
     if (this.el?.style.top.split('px')[0] > 110) { }
     if (this.dragState === 'is dragging') {
       this.el.style.top = e.clientY + 'px'
-      this.el.style.left = e.clientX + 'px  '
+      this.el.style.left = e.clientX + 'px'
     }
     if (this.changeSize === 'isResizing') {
       this.el.style.left = e.clientX + 'px'
