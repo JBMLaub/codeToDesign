@@ -49,7 +49,6 @@ export class AppComponent {
       console.log(e.target.clientX + 'px', 'is client X')
     }
   }
-  changeSize: any
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
     if (this.dragState === 'is dragging') {
@@ -79,6 +78,7 @@ export class AppComponent {
     this.el.addEventListener('input')
   }
 
+  changeSize: any
   activeShape: any
   handlersAdded: any = 'notAdded'
   activateForm() {
