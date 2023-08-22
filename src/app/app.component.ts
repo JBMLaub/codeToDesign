@@ -36,12 +36,7 @@ export class AppComponent {
       //still a mess
       this.el.style.left = e.clientX + 'px'
       this.el.style.top = e.clientY + 'px'
-      console.log(e.clientY)
-      //##delete form when dropped within menu
-      this.el.style.top = 60 + 'px'
-      this.el.style.left = 20 + 'px'
-      this.el.style.position = 'relative'
-      //stop form that's without the menu to get in
+
     }
     //not sure where to use you
     // if (this.el?.style.top.split('px')[0] < 120) { return }
@@ -51,7 +46,12 @@ export class AppComponent {
     //activate Form on first -- what??
     this.mouseDown = 'isUp'
     if (this.el.style.top.split('px')[0] < 114) {
-      //delete form
+      console.log(e.clientY)
+      //##delete form when dropped within menu
+      this.el.style.top = 60 + 'px'
+      this.el.style.left = 20 + 'px'
+      this.el.style.position = 'relative'
+      //stop form that's without the menu to get in
     }
   }
   el: any = undefined
