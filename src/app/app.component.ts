@@ -20,19 +20,23 @@ export class AppComponent {
   //--------------------------------------------
 
   // edit
+  mouseDown = 'isUp'
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
-    if (e.target.className === 'formSquare') {
+    this.mouseDown = 'isDown'
+    //if-state too long
+    if (e.target.className === 'formSquare' && e.target.style.top.split('px')[0] < 120) {
       //still a mess
       this.initializeShape(e)
     }
   }
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
-    if (e.target.className === 'formSquare') {
+    if (this.mouseDown === 'isDown') {
       //still a mess
-      e.target.style.left = e.clientX + 'px'
-      e.target.style.top = e.clientY + 'px'
+      this.el.style.left = e.clientX + 'px'
+      this.el.style.top = e.clientY + 'px'
+      console.log(e.clientY)
     }
     //not sure where to use you
     // if (this.el?.style.top.split('px')[0] < 120) { return }
@@ -40,6 +44,7 @@ export class AppComponent {
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
     //activate Form on first 
+    this.mouseDown = 'isUp'
   }
   el: any = undefined
   resizeSquare() {
@@ -53,7 +58,6 @@ export class AppComponent {
     let screen = document.getElementsByClassName('screen')[0]
     screen.insertBefore(this.el, screen.firstElementChild);
     //update CSS on formShape
-    console.log(e.target.style)
     this.el.style.boxSizing = 'border-box'
     this.el.style.position = 'absolute'
     this.el.style.top = 60 + 'px'
