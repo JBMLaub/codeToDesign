@@ -23,11 +23,13 @@ export class AppComponent {
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     if (e.target.style.position === '') {
-      this.initializeShape()
+      //still a mess
+      this.initializeShape(e)
     }
   }
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
+    //not sure where to use you
     // if (this.el?.style.top.split('px')[0] < 120) { return }
   }
   @HostListener('mouseup', ['$event'])
@@ -40,16 +42,17 @@ export class AppComponent {
     this.el.style.width = +this.el.style.left.split('px')[0] + 'px'
     console.log(this.el.style.left)
   }
-  initializeShape() {
+  initializeShape(e: any) {
     //insert form into screenDOM
     this.el = document.getElementsByClassName('formSquare')[0]
     let screen = document.getElementsByClassName('screen')[0]
     screen.insertBefore(this.el, screen.firstElementChild);
     //update CSS on formShape
+    console.log(e.target.style)
     this.el.style.boxSizing = 'border-box'
     this.el.style.position = 'absolute'
-    this.el.style.top = this.el.clientY
-    this.el.style.left = this.el.clientX
+    this.el.style.top = 60 + 'px'
+    this.el.style.left = 20 + 'px'
   }
   activateShape() {
     //insert resize points
