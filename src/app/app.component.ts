@@ -22,13 +22,18 @@ export class AppComponent {
   // edit
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
-    if (e.target.style.position === '') {
+    if (e.target.className === 'formSquare') {
       //still a mess
       this.initializeShape(e)
     }
   }
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
+    if (e.target.className === 'formSquare') {
+      //still a mess
+      e.target.style.left = e.clientX + 'px'
+      e.target.style.top = e.clientY + 'px'
+    }
     //not sure where to use you
     // if (this.el?.style.top.split('px')[0] < 120) { return }
   }
