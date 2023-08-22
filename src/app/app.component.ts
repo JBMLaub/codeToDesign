@@ -23,7 +23,7 @@ export class AppComponent {
   dragState = 'not dragging'
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
-    if (e.target.className === 'formSquare' && this.dragState === 'not dragging') {
+    if (e.target.className === 'formSquare' && this.dragState === 'not dragging' && this.changeSize != 'isResizing') {
       this.el = document.getElementsByClassName('formSquare')[0]
       let screen = document.getElementsByClassName('screen')[0]
       screen.insertBefore(this.el, screen.firstElementChild);
@@ -33,9 +33,10 @@ export class AppComponent {
       this.el.style.top = e.clientY + 'px'
       this.el.style.left = e.clientX + 'px'
       this.activateForm()
-    } else if (this.dragState === 'is dragging') {
-      this.dragState = 'not dragging'
     }
+    //  else if (this.dragState === 'is dragging') {
+    //   this.dragState = 'not dragging'
+    // }
     if (e.target.className === 'formSquare__handler--topLeft') {
       this.changeSize = 'isResizing'
     }
@@ -49,8 +50,39 @@ export class AppComponent {
     }
     if (this.changeSize === 'isResizing') {
       let dragStart
-      this.el.style.width = this.el.style.width.split('px')[0] + this.el.style.left.split('px')[0]
+      this.resizeSquare()
     }
+  }
+  @HostListener('mouseup', ['$event'])
+  mouseup(e: any) {
+    this.dragState = 'not dragging'
+  }
+
+  //--------------------------------------------
+
+  // edit
+  makeFullWidth() {
+    this.el.style.left = '0px'
+    this.el.style.width = '100%'
+  }
+
+  shapeColour = 'orange'
+  shapeColours = []
+  cpEdit: any
+  changeBackgroundColour() {
+    this.el = document.getElementsByClassName('formSquare')[0]
+    this.el.style.backgroundColor = this.shapeColour
+    this.cpEdit = document.getElementsByClassName('formSquare')[0]
+    this.cpEdit.addEventListener('click', function () {
+      // console.log('cpEdit') 
+    })
+    this.el.addEventListener('input')
+  }
+  resizeSquare() {
+    this.el = document.getElementsByClassName('formSquare')[0]
+
+    this.el.style.width = +this.el.style.left.split('px')[0] + 'px'
+    console.log(this.el.style.left)
   }
   changeSize: any
   activeShape: any
@@ -67,29 +99,6 @@ export class AppComponent {
       this.handlersAdded = 'areAdded'
 
     }
-  }
-  //--------------------------------------------
-
-  // edit
-  makeFullWidth() {
-    this.el.style.left = '0px'
-    this.el.style.width = '100%'
-  }
-
-  shapeColour = 'orange'
-  shapeColours = []
-  cpEdit: any
-  changeBackgroundColour() {
-    this.el = document.getElementsByClassName('formSquare')[0]
-    this.el.style.backgroundColor = this.shapeColour
-    this.cpEdit = document.getElementsByClassName('formSquare')[0]
-    this.cpEdit.addEventListener('click', function () { console.log('cpEdit') })
-    this.el.addEventListener('input')
-  }
-  resizeSquare() {
-    this.el = document.getElementsByClassName('formSquare')[0]
-      + this.el.style.left.split('px')[0]
-    this.el.style.width = +this.el.style.width.split('px')[0] + +this.el.style.left.split('px')[0]
   }
   //--------------------------------------
 
