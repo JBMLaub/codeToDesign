@@ -42,14 +42,14 @@ export class AppComponent {
   }
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
-    if (this.el?.style.top.split('px')[0] < 110) { return }
+    // if (this.el?.style.top.split('px')[0] < 120) { return }
     if (this.dragState === 'is dragging') {
       this.el.style.top = e.clientY + 'px'
       this.el.style.left = e.clientX + 'px'
     }
     if (this.changeSize === 'isResizing') {
-      this.el.style.left = e.clientX + 'px'
-      this.el.style.width = this.el.style.width.split('px')[0] + e.clientX + 'px'
+      let dragStart
+      this.el.style.width = this.el.style.width.split('px')[0] + this.el.style.left.split('px')[0]
     }
   }
   changeSize: any
