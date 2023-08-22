@@ -16,56 +16,55 @@ export class AppComponent {
   }
   //-------------------------------------------
 
-
   // forms
-  el: any = undefined
-  handlers: any = undefined
-  dragState = 'not dragging'
+  //--------------------------------------------
+
+  // edit
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
-    if (e.target.className === 'formSquare' && this.dragState === 'not dragging' && this.changeSize != 'isResizing') {
-      this.el = document.getElementsByClassName('formSquare')[0]
-      let screen = document.getElementsByClassName('screen')[0]
-      screen.insertBefore(this.el, screen.firstElementChild);
-      this.el.style.boxSizing = 'border-box'
-      this.el.style.position = 'absolute'
-      this.dragState = 'is dragging'
-      this.el.style.top = e.clientY + 'px'
-      this.el.style.left = e.clientX + 'px'
-      this.activateForm()
-    }
-    //  else if (this.dragState === 'is dragging') {
-    //   this.dragState = 'not dragging'
-    // }
-    if (e.target.className === 'formSquare__handler--topLeft') {
-      this.changeSize = 'isResizing'
+    if (e.target.style.position === '') {
+      this.initializeShape()
     }
   }
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
     // if (this.el?.style.top.split('px')[0] < 120) { return }
-    if (this.dragState === 'is dragging') {
-      this.el.style.top = e.clientY + 'px'
-      this.el.style.left = e.clientX + 'px'
-    }
-    if (this.changeSize === 'isResizing') {
-      let dragStart
-      this.resizeSquare()
-    }
   }
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
-    this.dragState = 'not dragging'
+    //activate Form on first 
   }
-
-  //--------------------------------------------
-
-  // edit
+  el: any = undefined
+  resizeSquare() {
+    //still no clue on how to do that
+    this.el.style.width = +this.el.style.left.split('px')[0] + 'px'
+    console.log(this.el.style.left)
+  }
+  initializeShape() {
+    //insert form into screenDOM
+    this.el = document.getElementsByClassName('formSquare')[0]
+    let screen = document.getElementsByClassName('screen')[0]
+    screen.insertBefore(this.el, screen.firstElementChild);
+    //update CSS on formShape
+    this.el.style.boxSizing = 'border-box'
+    this.el.style.position = 'absolute'
+    this.el.style.top = this.el.clientY
+    this.el.style.left = this.el.clientX
+  }
+  activateShape() {
+    //insert resize points
+    this.el = document.getElementsByClassName('formSquare')[0]
+    const topLeft = document.createElement("div");
+    topLeft.classList.add('formSquare__handler--topLeft')
+    const bottomRight = document.createElement("div");
+    bottomRight.classList.add('formSquare__handler--bottomRight')
+    this.el.insertBefore(topLeft, this.el.firstElementChild)
+    this.el.insertBefore(bottomRight, this.el.firstElementChild)
+  }
   makeFullWidth() {
     this.el.style.left = '0px'
     this.el.style.width = '100%'
   }
-
   shapeColour = 'orange'
   shapeColours = []
   cpEdit: any
@@ -77,28 +76,6 @@ export class AppComponent {
       // console.log('cpEdit') 
     })
     this.el.addEventListener('input')
-  }
-  resizeSquare() {
-    this.el = document.getElementsByClassName('formSquare')[0]
-
-    this.el.style.width = +this.el.style.left.split('px')[0] + 'px'
-    console.log(this.el.style.left)
-  }
-  changeSize: any
-  activeShape: any
-  handlersAdded: any = 'notAdded'
-  activateForm() {
-    if (this.handlersAdded === 'notAdded') {
-      this.el = document.getElementsByClassName('formSquare')[0]
-      const topLeft = document.createElement("div");
-      topLeft.classList.add('formSquare__handler--topLeft')
-      const bottomRight = document.createElement("div");
-      bottomRight.classList.add('formSquare__handler--bottomRight')
-      this.el.insertBefore(topLeft, this.el.firstElementChild)
-      this.el.insertBefore(bottomRight, this.el.firstElementChild)
-      this.handlersAdded = 'areAdded'
-
-    }
   }
   //--------------------------------------
 
