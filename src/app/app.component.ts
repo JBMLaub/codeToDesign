@@ -42,7 +42,7 @@ export class AppComponent {
   }
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
-    if (this.el?.style.top.split('px')[0] > 110) { }
+    if (this.el?.style.top.split('px')[0] < 110) { return }
     if (this.dragState === 'is dragging') {
       this.el.style.top = e.clientY + 'px'
       this.el.style.left = e.clientX + 'px'
@@ -85,6 +85,11 @@ export class AppComponent {
     this.cpEdit = document.getElementsByClassName('formSquare')[0]
     this.cpEdit.addEventListener('click', function () { console.log('cpEdit') })
     this.el.addEventListener('input')
+  }
+  resizeSquare() {
+    this.el = document.getElementsByClassName('formSquare')[0]
+      + this.el.style.left.split('px')[0]
+    this.el.style.width = +this.el.style.width.split('px')[0] + +this.el.style.left.split('px')[0]
   }
   //--------------------------------------
 
