@@ -28,6 +28,7 @@ export class AppComponent {
     if (e.target.className === 'formSquare' && e.target.style.top.split('px')[0] < 120) {
       //still a mess
       this.initializeShape(e)
+      this.activateShape('not Full')
     }
   }
   @HostListener('mousemove', ['$event'])
@@ -41,7 +42,7 @@ export class AppComponent {
     if (this.el.style.top.split('px')[0] < 120) {
       this.el.style.top = '120px'
     }
-    //not sure where to use you
+    //adapt el to  cursor posiion within el
   }
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
@@ -73,17 +74,21 @@ export class AppComponent {
     this.el.style.top = 60 + 'px'
     this.el.style.left = 20 + 'px'
   }
-  activateShape() {
+  activateShape(size: any) {
     //insert resize points
-    this.el = document.getElementsByClassName('formSquare')[0]
-    const topLeft = document.createElement("div");
-    topLeft.classList.add('formSquare__handler--topLeft')
-    const bottomRight = document.createElement("div");
-    bottomRight.classList.add('formSquare__handler--bottomRight')
-    this.el.insertBefore(topLeft, this.el.firstElementChild)
-    this.el.insertBefore(bottomRight, this.el.firstElementChild)
-    //if full-width only handler on middle-botton
-
+    if (size === 'notFull') {
+      this.el = document.getElementsByClassName('formSquare')[0]
+      const topLeft = document.createElement("div");
+      topLeft.classList.add('formSquare__handler--topLeft')
+      const bottomRight = document.createElement("div");
+      bottomRight.classList.add('formSquare__handler--bottomRight')
+      this.el.insertBefore(topLeft, this.el.firstElementChild)
+      this.el.insertBefore(bottomRight, this.el.firstElementChild)
+    } else if (size === 'fullWidth') {
+      const bottomMiddle = document.createElement("div");
+      bottomMiddle.classList.add('formSquare__handler--bottomMiddle')
+      this.el.insertBefore(bottomMiddle, this.el.firstElementChild)
+    }
   }
   makeFullWidth() {
     this.el.style.left = '0px'
