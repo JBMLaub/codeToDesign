@@ -29,9 +29,12 @@ export class AppComponent {
       screen.insertBefore(this.el, screen.firstElementChild);
       this.el.style.boxSizing = 'border-box'
       this.el.style.position = 'absolute'
+      console.log(this.el.style)
       this.dragState = 'is dragging'
-      this.el.style.top = e.clientY + 'px'
-      this.el.style.left = e.clientX + 'px'
+      //hardcoded start values
+      //poiner position is jumping
+      this.el.style.top = 60 + 'px'
+      this.el.style.left = 20 + 'px'
       this.activateForm()
     } else if (this.dragState === 'is dragging') {
       this.dragState = 'not dragging'
@@ -44,8 +47,8 @@ export class AppComponent {
   mousemove(e: any) {
     if (this.el?.style.top.split('px')[0] > 110) { }
     if (this.dragState === 'is dragging') {
-      this.el.style.top = e.clientY + 'px'
-      this.el.style.left = e.clientX + 'px'
+      this.el.style.top = -20 + e.clientY + 'px'
+      this.el.style.left = -20 + e.clientX + 'px'
     }
     if (this.changeSize === 'isResizing') {
       this.el.style.left = e.clientX + 'px'
