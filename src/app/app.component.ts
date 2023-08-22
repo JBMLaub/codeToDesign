@@ -38,8 +38,10 @@ export class AppComponent {
       this.el.style.top = e.clientY + 'px'
 
     }
+    if (this.el.style.top.split('px')[0] < 120) {
+      this.el.style.top = '120px'
+    }
     //not sure where to use you
-    // if (this.el?.style.top.split('px')[0] < 120) { return }
   }
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
@@ -51,7 +53,7 @@ export class AppComponent {
       this.el.style.top = 60 + 'px'
       this.el.style.left = 20 + 'px'
       this.el.style.position = 'relative'
-      //stop form that's without the menu to get in
+      //stop form that's outside the menu to get in
     }
   }
   el: any = undefined
@@ -80,6 +82,8 @@ export class AppComponent {
     bottomRight.classList.add('formSquare__handler--bottomRight')
     this.el.insertBefore(topLeft, this.el.firstElementChild)
     this.el.insertBefore(bottomRight, this.el.firstElementChild)
+    //if full-width only handler on middle-botton
+
   }
   makeFullWidth() {
     this.el.style.left = '0px'
