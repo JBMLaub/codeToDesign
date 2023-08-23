@@ -20,6 +20,7 @@ export class AppComponent {
   //--------------------------------------------
 
   // edit
+  isInitialized = 'dragging out'
   mouseDown = 'isUp'
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
@@ -28,7 +29,7 @@ export class AppComponent {
     if (e.target.className === 'formSquare' && e.target.style.top.split('px')[0] < 120) {
       //still a mess
       this.initializeShape(e)
-      this.activateShape('not Full')
+      this.addHandlebars('not Full')
     }
   }
   @HostListener('mousemove', ['$event'])
@@ -41,6 +42,8 @@ export class AppComponent {
     }
     if (this.el.style.top.split('px')[0] < 120) {
       this.el.style.top = '120px'
+      this.makeFullWidth()
+      this.addHandlebars('fullWidth')
     }
     //adapt el to  cursor posiion within el
   }
@@ -73,9 +76,12 @@ export class AppComponent {
     this.el.style.position = 'absolute'
     this.el.style.top = 60 + 'px'
     this.el.style.left = 20 + 'px'
+
   }
-  activateShape(size: any) {
+  addHandlebars(size: any) {
     //insert resize points
+    //content belongs to another function or when is addHandlebars used
+    //chaos
     if (size === 'notFull') {
       this.el = document.getElementsByClassName('formSquare')[0]
       const topLeft = document.createElement("div");
