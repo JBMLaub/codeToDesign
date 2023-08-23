@@ -40,12 +40,15 @@ export class AppComponent {
       this.el.style.top = e.clientY + 'px'
 
     }
-    if (this.el.style.top.split('px')[0] < 120) {
+    if (this.el.style.top.split('px')[0] < 120 && this.isInitialized === 'hasBeenPlaced') {
       this.el.style.top = '120px'
       this.makeFullWidth()
       this.addHandlebars('fullWidth')
     }
-    //adapt el to  cursor posiion within el
+    if (this.el.style.top.split('px')[0] >= 120) {
+      this.isInitialized = 'hasBeenPlaced'
+      //adapt el to  cursor posiion within el
+    }
   }
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
