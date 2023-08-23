@@ -28,6 +28,7 @@ export class AppComponent {
     if (e.target.className === 'formSquare' && e.target.style.top.split('px')[0] < 120) {
       //still a mess
       this.initializeShape(e)
+      this.activateShape()
     }
   }
   wasInitialised = 'didNotPass'
@@ -81,6 +82,10 @@ export class AppComponent {
     bottomRight.classList.add('formSquare__handler--bottomRight')
     this.el.insertBefore(topLeft, this.el.firstElementChild)
     this.el.insertBefore(bottomRight, this.el.firstElementChild)
+    const bottomMiddle = document.createElement("div")
+    bottomMiddle.classList.add('formSquare__handler--bottomMiddle')
+    this.el.insertBefore(bottomMiddle, this.el.firstElementChild)
+
   }
   makeFullWidth() {
     this.el.style.left = '0px'
