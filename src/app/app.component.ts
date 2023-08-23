@@ -18,7 +18,7 @@ export class AppComponent {
 
   // forms
   //--------------------------------------------
-
+  //All shit
   // edit
   mouseDown = 'isUp'
   @HostListener('mousedown', ['$event'])
@@ -30,6 +30,7 @@ export class AppComponent {
       this.initializeShape(e)
       this.activateShape()
     }
+
   }
   wasInitialised = 'didNotPass'
   @HostListener('mousemove', ['$event'])
@@ -38,7 +39,9 @@ export class AppComponent {
       //still a mess
       this.el.style.left = e.clientX + 'px'
       this.el.style.top = e.clientY + 'px'
-      console.log(e.clientY)
+      if (e.target.className === 'formSquare__handler--bottomMiddle') {
+        this.el.style.height = e.clientY + 'px'
+      }
     }
     if (this.el?.style.top.split('px')[0] < 120 && this.wasInitialised === 'didPass') {
       this.el.style.top = '120px'
@@ -49,6 +52,7 @@ export class AppComponent {
     if (this.el.style.top.split('px')[0] > 120) {
       this.wasInitialised = 'didPass'
     }
+
     //not sure where to use you
   }
   @HostListener('mouseup', ['$event'])
