@@ -30,6 +30,7 @@ export class AppComponent {
       this.initializeShape(e)
     }
   }
+  wasInitialised = 'didNotPass'
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
     if (this.mouseDown === 'isDown') {
@@ -38,8 +39,13 @@ export class AppComponent {
       this.el.style.top = e.clientY + 'px'
       console.log(e.clientY)
     }
+    if (this.el?.style.top.split('px')[0] < 120 && this.wasInitialised === 'didPass') {
+      this.el.style.top = '120px'
+    }
+    if (this.el.style.top = '120px') {
+      this.makeFullWidth()
+    }
     //not sure where to use you
-    // if (this.el?.style.top.split('px')[0] < 120) { return }
   }
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
