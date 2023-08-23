@@ -36,6 +36,7 @@ export class AppComponent {
   mousemove(e: any) {
     if (this.mouseDown === 'isDown') {
       //still a mess
+      let left = this.el.style.left.split('px')[0]
       this.el.style.left = e.clientX + 'px'
       this.el.style.top = e.clientY + 'px'
 
