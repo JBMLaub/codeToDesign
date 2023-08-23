@@ -77,27 +77,12 @@ export class AppComponent {
     this.el.style.left = '0px'
     this.el.style.width = '100%'
   }
-  shapeColour = 'orange'
-  shapeColours = []
-  cpEdit: any
-  changeBackgroundColour() {
-    this.el = document.getElementsByClassName('formSquare')[0]
-    this.el.style.backgroundColor = this.shapeColour
-    this.cpEdit = document.getElementsByClassName('formSquare')[0]
-    this.cpEdit.addEventListener('click', function () {
-      // console.log('cpEdit') 
-    })
 
-    this.el.addEventListener('input')
+  colour: any
+  myInput() {
+    this.el.style.backgroundColor = this.colour
   }
-  colourInput() {
-    let colorInput = document.getElementById('color');
-    let colorValue = (colorInput as HTMLInputElement).value;
 
-    (colorInput as HTMLInputElement).addEventListener('input', () => {
-      document.getElementById('colorVal')!.innerHTML = (colorInput as HTMLInputElement).value;
-    });
-  }
   //--------------------------------------
 
   // typing
