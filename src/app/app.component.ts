@@ -87,7 +87,16 @@ export class AppComponent {
     this.cpEdit.addEventListener('click', function () {
       // console.log('cpEdit') 
     })
+
     this.el.addEventListener('input')
+  }
+  colourInput() {
+    let colorInput = document.getElementById('color');
+    let colorValue = (colorInput as HTMLInputElement).value;
+
+    (colorInput as HTMLInputElement).addEventListener('input', () => {
+      document.getElementById('colorVal')!.innerHTML = (colorInput as HTMLInputElement).value;
+    });
   }
   //--------------------------------------
 

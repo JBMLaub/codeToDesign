@@ -16,7 +16,8 @@
 
 <div class="navMenues" *ngIf="isActive === 'Edit'">
   <button (click)="makeFullWidth()">100% breit</button>
-  <input type="color" class="cpEdit" />
+  <label id="colorVal">Select color</label>
+  <input type="color" id="color" />Value
 </div>
 <div class="navMenues" *ngIf="isActive === 'Typing'">
   <app-little-form
