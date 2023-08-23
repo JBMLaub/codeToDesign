@@ -42,8 +42,11 @@ export class AppComponent {
     if (this.el?.style.top.split('px')[0] < 120 && this.wasInitialised === 'didPass') {
       this.el.style.top = '120px'
     }
-    if (this.el.style.top = '120px') {
+    if (this.el.style.top === '120px') {
       this.makeFullWidth()
+    }
+    if (this.el.style.top.split('px')[0] > 120) {
+      this.wasInitialised = 'didPass'
     }
     //not sure where to use you
   }
