@@ -20,46 +20,7 @@ export class AppComponent {
   //--------------------------------------------
   //All shit
   // edit
-  // mouseDown = 'isUp'
-  // @HostListener('mousedown', ['$event'])
-  // mousedown(e: any) {
-  //   this.mouseDown = 'isDown'
-  //   //if-state too long
-  //   // if (e.target.className === 'formSquare' && e.target.style.top.split('px')[0] < 120) {
-  //   //still a mess
-  //   this.initializeShape(e)
-  //   // this.activateShape()
-  //   // }
 
-  // }
-  // wasInitialised = 'didNotPass'
-  // @HostListener('mousemove', ['$event'])
-  // mousemove(e: any) {
-  //   if (this.mouseDown === 'isDown') {
-  //     //still a mess
-  //     this.el.style.left = e.clientX + 'px'
-  //     this.el.style.top = e.clientY + 'px'
-  //     // if (e.target.className === 'formSquare__handler--bottomMiddle') {
-  //     //   this.el.style.height = e.clientY + 'px'
-  //     // }
-  //   }
-  //   // if (this.el?.style.top.split('px')[0] < 120 && this.wasInitialised === 'didPass') {
-  //   //   this.el.style.top = '120px'
-  //   // }
-  //   // if (this.el.style.top === '120px') {
-  //   //   this.makeFullWidth()
-  //   // }
-  //   // if (this.el.style.top.split('px')[0] > 120) {
-  //   //   this.wasInitialised = 'didPass'
-  //   // }
-
-  //   //not sure where to use you
-  // }
-  // @HostListener('mouseup', ['$event'])
-  // mouseup(e: any) {
-  //   //activate Form on first 
-  //   this.mouseDown = 'isUp'
-  // }
   el: any = undefined
   initializeShape(e: any) {
     //insert form into screenDOM
@@ -69,8 +30,8 @@ export class AppComponent {
     //update CSS on formShape
     this.el.style.boxSizing = 'border-box'
     this.el.style.position = 'absolute'
-    // this.el.style.top = 60 + 'px'
-    // this.el.style.left = 20 + 'px'
+    this.el.style.top = 60 + 'px'
+    this.el.style.left = 20 + 'px'
   }
   activateShape() {
     //insert resize points
@@ -159,7 +120,9 @@ export class AppComponent {
       this.square.style.height = e.clientY - 100 + 'px'
       this.square.style.width = e.clientX - 100 + 'px'
     }
-
+    if (+this.el.style.top.split('px')[0] > 120) {
+      this.formOnSite === true
+    }
     //not sure where to use you
   }
   @HostListener('mouseup', ['$event'])
@@ -167,6 +130,7 @@ export class AppComponent {
     //activate Form on first 
     this.mouseDown = 'isUp'
     this.target = undefined
+
   }
 
 
