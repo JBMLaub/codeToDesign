@@ -25,11 +25,11 @@ export class AppComponent {
   // mousedown(e: any) {
   //   this.mouseDown = 'isDown'
   //   //if-state too long
-  //   if (e.target.className === 'formSquare' && e.target.style.top.split('px')[0] < 120) {
-  //     //still a mess
-  //     this.initializeShape(e)
-  //     this.activateShape()
-  //   }
+  //   // if (e.target.className === 'formSquare' && e.target.style.top.split('px')[0] < 120) {
+  //   //still a mess
+  //   this.initializeShape(e)
+  //   // this.activateShape()
+  //   // }
 
   // }
   // wasInitialised = 'didNotPass'
@@ -39,19 +39,19 @@ export class AppComponent {
   //     //still a mess
   //     this.el.style.left = e.clientX + 'px'
   //     this.el.style.top = e.clientY + 'px'
-  //     if (e.target.className === 'formSquare__handler--bottomMiddle') {
-  //       this.el.style.height = e.clientY + 'px'
-  //     }
+  //     // if (e.target.className === 'formSquare__handler--bottomMiddle') {
+  //     //   this.el.style.height = e.clientY + 'px'
+  //     // }
   //   }
-  //   if (this.el?.style.top.split('px')[0] < 120 && this.wasInitialised === 'didPass') {
-  //     this.el.style.top = '120px'
-  //   }
-  //   if (this.el.style.top === '120px') {
-  //     this.makeFullWidth()
-  //   }
-  //   if (this.el.style.top.split('px')[0] > 120) {
-  //     this.wasInitialised = 'didPass'
-  //   }
+  //   // if (this.el?.style.top.split('px')[0] < 120 && this.wasInitialised === 'didPass') {
+  //   //   this.el.style.top = '120px'
+  //   // }
+  //   // if (this.el.style.top === '120px') {
+  //   //   this.makeFullWidth()
+  //   // }
+  //   // if (this.el.style.top.split('px')[0] > 120) {
+  //   //   this.wasInitialised = 'didPass'
+  //   // }
 
   //   //not sure where to use you
   // }
@@ -69,8 +69,8 @@ export class AppComponent {
     //update CSS on formShape
     this.el.style.boxSizing = 'border-box'
     this.el.style.position = 'absolute'
-    this.el.style.top = 60 + 'px'
-    this.el.style.left = 20 + 'px'
+    // this.el.style.top = 60 + 'px'
+    // this.el.style.left = 20 + 'px'
   }
   activateShape() {
     //insert resize points
@@ -120,24 +120,26 @@ export class AppComponent {
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     this.mouseDown = 'isDown'
+
+    this.square = document.getElementsByClassName('square')[0]
+    let screen = document.getElementsByClassName('screen')[0]
+    screen.insertBefore(this.square, screen.firstElementChild);
+
+    this.square.style.boxSizing = 'border-box'
+    this.square.style.position = 'absolute'
+    this.square.style.top = 60 + 'px'
+    this.square.style.left = 20 + 'px'
   }
   square: any
   wasInitialised = 'didNotPass'
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
     if (this.mouseDown === 'isDown') {
-      this.square = document.getElementsByClassName('square')[0]
       console.log(this.square)
-      this.el = document.getElementsByClassName('formSquare')[0]
-      let screen = document.getElementsByClassName('screen')[0]
-      screen.insertBefore(this.el, screen.firstElementChild);
       //update CSS on formShape
-      this.el.style.boxSizing = 'border-box'
-      this.el.style.position = 'absolute'
-      this.el.style.top = 60 + 'px'
-      this.el.style.left = 20 + 'px'
-      this.square.style.bottom = e.clientY + 'px'
-      this.square.style.right = e.clientX + 'px'
+
+      this.square.style.top = e.clientY + 'px'
+      this.square.style.left = e.clientX + 'px'
     } else if (this.mouseDown === 'isDown') {
       // this.square = document.getElementsByClassName('square')[0]
       // this.square.style.height = e.clientY - 100 + 'px'
