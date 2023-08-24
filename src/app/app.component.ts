@@ -132,7 +132,6 @@ export class AppComponent {
   mousedown(e: any) {
     this.mouseDown = 'isDown'
     this.target = e.target.className
-    console.log(this.target)
     this.square = document.getElementsByClassName('square')[0]
 
     if (this.formOnSite === false && this.el.target === 'square') {
