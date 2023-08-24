@@ -131,3 +131,21 @@
     height: 25px;
     margin-left: 15px
 }
+
+.square {
+    width:100px;
+    height:100px;
+    background-color: orange;
+    top:100px;
+    left: 100px;
+    position:absolute;
+}
+
+.square--handlebars{
+    position:absolute;
+    width:12px;
+    height:12px;
+    background-color: antiquewhite;
+    right:-6px;
+    bottom:-6px;
+}
