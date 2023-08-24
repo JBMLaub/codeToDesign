@@ -117,18 +117,22 @@ export class AppComponent {
   //playground
 
   mouseDown = 'isUp'
+  formOnSite = false
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     this.mouseDown = 'isDown'
 
-    this.square = document.getElementsByClassName('square')[0]
-    let screen = document.getElementsByClassName('screen')[0]
-    screen.insertBefore(this.square, screen.firstElementChild);
+    if (this.formOnSite === false) {
+      this.square = document.getElementsByClassName('square')[0]
+      let screen = document.getElementsByClassName('screen')[0]
+      screen.insertBefore(this.square, screen.firstElementChild);
 
-    this.square.style.boxSizing = 'border-box'
-    this.square.style.position = 'absolute'
-    this.square.style.top = 60 + 'px'
-    this.square.style.left = 20 + 'px'
+      this.square.style.boxSizing = 'border-box'
+      this.square.style.position = 'absolute'
+      this.square.style.top = 60 + 'px'
+      this.square.style.left = 20 + 'px'
+      this.formOnSite = true
+    }
   }
   square: any
   wasInitialised = 'didNotPass'
