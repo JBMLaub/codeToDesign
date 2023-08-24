@@ -118,11 +118,21 @@ export class AppComponent {
 
   mouseDown = 'isUp'
   formOnSite = false
+  isSeventeen = false
+  @HostListener('document:keydown', ['$event'])
+  keydown(e: any) {
+    this.isSeventeen = true
+  }
+  @HostListener('document:keyup', ['$event'])
+  keyup(e: any) {
+    this.isSeventeen = false
+  }
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     this.mouseDown = 'isDown'
+    this.square = document.getElementsByClassName('square')[0]
 
-    if (this.formOnSite === false) {
+    if (this.formOnSite === false && this.el.target === 'square') {
       this.square = document.getElementsByClassName('square')[0]
       let screen = document.getElementsByClassName('screen')[0]
       screen.insertBefore(this.square, screen.firstElementChild);
@@ -138,16 +148,14 @@ export class AppComponent {
   wasInitialised = 'didNotPass'
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
-    if (this.mouseDown === 'isDown') {
-      console.log(this.square)
+    if (this.mouseDown === 'isDown' && this.isSeventeen) {
       //update CSS on formShape
 
       this.square.style.top = e.clientY + 'px'
       this.square.style.left = e.clientX + 'px'
     } else if (this.mouseDown === 'isDown') {
-      // this.square = document.getElementsByClassName('square')[0]
-      // this.square.style.height = e.clientY - 100 + 'px'
-      // this.square.style.width = e.clientX - 100 + 'px'
+      this.square.style.height = e.clientY - 100 + 'px'
+      this.square.style.width = e.clientX - 100 + 'px'
     }
 
     //not sure where to use you
@@ -156,6 +164,7 @@ export class AppComponent {
   mouseup(e: any) {
     //activate Form on first 
     this.mouseDown = 'isUp'
+    console.log(e.keyCode)
   }
 
 
