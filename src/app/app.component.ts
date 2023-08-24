@@ -20,52 +20,47 @@ export class AppComponent {
   //--------------------------------------------
   //All shit
   // edit
-  mouseDown = 'isUp'
-  @HostListener('mousedown', ['$event'])
-  mousedown(e: any) {
-    this.mouseDown = 'isDown'
-    //if-state too long
-    if (e.target.className === 'formSquare' && e.target.style.top.split('px')[0] < 120) {
-      //still a mess
-      this.initializeShape(e)
-      this.activateShape()
-    }
+  // mouseDown = 'isUp'
+  // @HostListener('mousedown', ['$event'])
+  // mousedown(e: any) {
+  //   this.mouseDown = 'isDown'
+  //   //if-state too long
+  //   if (e.target.className === 'formSquare' && e.target.style.top.split('px')[0] < 120) {
+  //     //still a mess
+  //     this.initializeShape(e)
+  //     this.activateShape()
+  //   }
 
-  }
-  wasInitialised = 'didNotPass'
-  @HostListener('mousemove', ['$event'])
-  mousemove(e: any) {
-    if (this.mouseDown === 'isDown') {
-      //still a mess
-      this.el.style.left = e.clientX + 'px'
-      this.el.style.top = e.clientY + 'px'
-      if (e.target.className === 'formSquare__handler--bottomMiddle') {
-        this.el.style.height = e.clientY + 'px'
-      }
-    }
-    if (this.el?.style.top.split('px')[0] < 120 && this.wasInitialised === 'didPass') {
-      this.el.style.top = '120px'
-    }
-    if (this.el.style.top === '120px') {
-      this.makeFullWidth()
-    }
-    if (this.el.style.top.split('px')[0] > 120) {
-      this.wasInitialised = 'didPass'
-    }
+  // }
+  // wasInitialised = 'didNotPass'
+  // @HostListener('mousemove', ['$event'])
+  // mousemove(e: any) {
+  //   if (this.mouseDown === 'isDown') {
+  //     //still a mess
+  //     this.el.style.left = e.clientX + 'px'
+  //     this.el.style.top = e.clientY + 'px'
+  //     if (e.target.className === 'formSquare__handler--bottomMiddle') {
+  //       this.el.style.height = e.clientY + 'px'
+  //     }
+  //   }
+  //   if (this.el?.style.top.split('px')[0] < 120 && this.wasInitialised === 'didPass') {
+  //     this.el.style.top = '120px'
+  //   }
+  //   if (this.el.style.top === '120px') {
+  //     this.makeFullWidth()
+  //   }
+  //   if (this.el.style.top.split('px')[0] > 120) {
+  //     this.wasInitialised = 'didPass'
+  //   }
 
-    //not sure where to use you
-  }
-  @HostListener('mouseup', ['$event'])
-  mouseup(e: any) {
-    //activate Form on first 
-    this.mouseDown = 'isUp'
-  }
+  //   //not sure where to use you
+  // }
+  // @HostListener('mouseup', ['$event'])
+  // mouseup(e: any) {
+  //   //activate Form on first 
+  //   this.mouseDown = 'isUp'
+  // }
   el: any = undefined
-  resizeSquare() {
-    //still no clue on how to do that
-    this.el.style.width = +this.el.style.left.split('px')[0] + 'px'
-    console.log(this.el.style.left)
-  }
   initializeShape(e: any) {
     //insert form into screenDOM
     this.el = document.getElementsByClassName('formSquare')[0]
@@ -117,6 +112,45 @@ export class AppComponent {
   // positioning
   // addins
   // user
+
+
+  //playground
+
+  mouseDown = 'isUp'
+  @HostListener('mousedown', ['$event'])
+  mousedown(e: any) {
+    this.mouseDown = 'isDown'
+  }
+  square: any
+  wasInitialised = 'didNotPass'
+  @HostListener('mousemove', ['$event'])
+  mousemove(e: any) {
+    if (this.mouseDown === 'isDown') {
+      this.square = document.getElementsByClassName('square')[0]
+      console.log(this.square)
+      this.el = document.getElementsByClassName('formSquare')[0]
+      let screen = document.getElementsByClassName('screen')[0]
+      screen.insertBefore(this.el, screen.firstElementChild);
+      //update CSS on formShape
+      this.el.style.boxSizing = 'border-box'
+      this.el.style.position = 'absolute'
+      this.el.style.top = 60 + 'px'
+      this.el.style.left = 20 + 'px'
+      this.square.style.bottom = e.clientY + 'px'
+      this.square.style.right = e.clientX + 'px'
+    } else if (this.mouseDown === 'isDown') {
+      // this.square = document.getElementsByClassName('square')[0]
+      // this.square.style.height = e.clientY - 100 + 'px'
+      // this.square.style.width = e.clientX - 100 + 'px'
+    }
+
+    //not sure where to use you
+  }
+  @HostListener('mouseup', ['$event'])
+  mouseup(e: any) {
+    //activate Form on first 
+    this.mouseDown = 'isUp'
+  }
 
 
 
