@@ -119,17 +119,20 @@ export class AppComponent {
   mouseDown = 'isUp'
   formOnSite = false
   isSeventeen = false
-  @HostListener('document:keydown', ['$event'])
-  keydown(e: any) {
-    this.isSeventeen = true
-  }
-  @HostListener('document:keyup', ['$event'])
-  keyup(e: any) {
-    this.isSeventeen = false
-  }
+  target: any
+  // @HostListener('document:keydown', ['$event'])
+  // keydown(e: any) {
+  //   this.isSeventeen = true
+  // }
+  // @HostListener('document:keyup', ['$event'])
+  // keyup(e: any) {
+  //   this.isSeventeen = false
+  // }
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     this.mouseDown = 'isDown'
+    this.target = e.target.className
+    console.log(this.target)
     this.square = document.getElementsByClassName('square')[0]
 
     if (this.formOnSite === false && this.el.target === 'square') {
@@ -148,12 +151,12 @@ export class AppComponent {
   wasInitialised = 'didNotPass'
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
-    if (this.mouseDown === 'isDown' && this.isSeventeen) {
+    if (this.mouseDown === 'isDown' && this.target === 'square') {
       //update CSS on formShape
 
       this.square.style.top = e.clientY + 'px'
       this.square.style.left = e.clientX + 'px'
-    } else if (this.mouseDown === 'isDown') {
+    } else if (this.mouseDown === 'isDown' && this.target === 'square--handlebars') {
       this.square.style.height = e.clientY - 100 + 'px'
       this.square.style.width = e.clientX - 100 + 'px'
     }
@@ -164,7 +167,7 @@ export class AppComponent {
   mouseup(e: any) {
     //activate Form on first 
     this.mouseDown = 'isUp'
-    console.log(e.keyCode)
+    this.target = undefined
   }
 
 
