@@ -60,15 +60,13 @@ export class AppComponent {
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
     if (this.mouseDown === 'isDown' && this.target === 'formSquare') {
-      this.el = document.getElementsByClassName('formSquare')[0]
-
       this.el.style.top = e.clientY - this.centiesY + 'px'
       this.el.style.left = e.clientX - this.centiesX + 'px'
     }
-    // else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
-    //   this.el.style.height = e.clientY - 240 + 'px'
-    //   this.el.style.width = e.clientX - 90 + 'px'
-    // }
+    else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
+      this.el.style.height = e.clientY - 240 + 'px'
+      this.el.style.width = e.clientX - 90 + 'px'
+    }
     // if (+this.el.style.top.split('px')[0] > 120) {
     //   this.formOnSite === true
     // }
