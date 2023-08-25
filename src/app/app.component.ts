@@ -21,32 +21,67 @@ export class AppComponent {
   //All shit
   // edit
 
+  mouseDown = 'isUp'
+  formOnSite = false
+  isSeventeen = false
+  target: any
   el: any = undefined
-  initializeShape(e: any) {
-    //insert form into screenDOM
-    this.el = document.getElementsByClassName('formSquare')[0]
-    let screen = document.getElementsByClassName('screen')[0]
-    screen.insertBefore(this.el, screen.firstElementChild);
-    //update CSS on formShape
-    this.el.style.boxSizing = 'border-box'
-    this.el.style.position = 'absolute'
-    this.el.style.top = 60 + 'px'
-    this.el.style.left = 20 + 'px'
+
+  @HostListener('mousedown', ['$event'])
+  mousedown(e: any) {
+    this.mouseDown = 'isDown'
+    this.target = e.target.className
+    console.log(e.target.className, this.target)
+    if (this.formOnSite === false && e.target.className === 'formSquare') {
+      this.el = document.getElementsByClassName('formSquare')[0]
+      let screen = document.getElementsByClassName('screen')[0]
+      screen.insertBefore(this.el, screen.firstElementChild);
+
+      this.el.style.boxSizing = 'border-box'
+      this.el.style.position = 'absolute'
+      this.el.style.top = 60 + 'px'
+      this.el.style.left = 20 + 'px'
+      this.formOnSite = true
+
+      this.addResizePoint()
+    }
+    if (e.target.className === 'formSquare__handler--bottomRight') {
+      this.target = e.target.className
+    }
   }
-  activateShape() {
-    //insert resize points
+  square: any
+  wasInitialised = 'didNotPass'
+  @HostListener('mousemove', ['$event'])
+  mousemove(e: any) {
     this.el = document.getElementsByClassName('formSquare')[0]
-    const topLeft = document.createElement("div");
-    topLeft.classList.add('formSquare__handler--topLeft')
+    if (this.mouseDown === 'isDown' && this.target === 'formSquare') {
+      console.log(this.el)
+      this.el.style.top = e.clientY + 'px'
+      this.el.style.left = e.clientX + 'px'
+    }
+    else if (this.mouseDown === 'isDown' && this.target === '.formSquare__handler--bottomRight') {
+      this.el.style.height = e.clientY - 100 + 'px'
+      this.el.style.width = e.clientX - 100 + 'px'
+    }
+    if (+this.el.style.top.split('px')[0] > 120) {
+      this.formOnSite === true
+    }
+    //not sure where to use you
+  }
+  @HostListener('mouseup', ['$event'])
+  mouseup(e: any) {
+    //activate Form on first 
+    this.mouseDown = 'isUp'
+    this.target = undefined
+  }
+
+
+  addResizePoint() {
     const bottomRight = document.createElement("div");
     bottomRight.classList.add('formSquare__handler--bottomRight')
-    this.el.insertBefore(topLeft, this.el.firstElementChild)
     this.el.insertBefore(bottomRight, this.el.firstElementChild)
-    const bottomMiddle = document.createElement("div")
-    bottomMiddle.classList.add('formSquare__handler--bottomMiddle')
-    this.el.insertBefore(bottomMiddle, this.el.firstElementChild)
-
   }
+
   makeFullWidth() {
     this.el.style.left = '0px'
     this.el.style.width = '100%'
@@ -77,61 +112,7 @@ export class AppComponent {
 
   //playground
 
-  mouseDown = 'isUp'
-  formOnSite = false
-  isSeventeen = false
-  target: any
-  // @HostListener('document:keydown', ['$event'])
-  // keydown(e: any) {
-  //   this.isSeventeen = true
-  // }
-  // @HostListener('document:keyup', ['$event'])
-  // keyup(e: any) {
-  //   this.isSeventeen = false
-  // }
-  @HostListener('mousedown', ['$event'])
-  mousedown(e: any) {
-    this.mouseDown = 'isDown'
-    this.target = e.target.className
-    this.square = document.getElementsByClassName('square')[0]
 
-    if (this.formOnSite === false && this.el.target === 'square') {
-      this.square = document.getElementsByClassName('square')[0]
-      let screen = document.getElementsByClassName('screen')[0]
-      screen.insertBefore(this.square, screen.firstElementChild);
-
-      this.square.style.boxSizing = 'border-box'
-      this.square.style.position = 'absolute'
-      this.square.style.top = 60 + 'px'
-      this.square.style.left = 20 + 'px'
-      this.formOnSite = true
-    }
-  }
-  square: any
-  wasInitialised = 'didNotPass'
-  @HostListener('mousemove', ['$event'])
-  mousemove(e: any) {
-    if (this.mouseDown === 'isDown' && this.target === 'square') {
-      //update CSS on formShape
-
-      this.square.style.top = e.clientY + 'px'
-      this.square.style.left = e.clientX + 'px'
-    } else if (this.mouseDown === 'isDown' && this.target === 'square--handlebars') {
-      this.square.style.height = e.clientY - 100 + 'px'
-      this.square.style.width = e.clientX - 100 + 'px'
-    }
-    if (+this.el.style.top.split('px')[0] > 120) {
-      this.formOnSite === true
-    }
-    //not sure where to use you
-  }
-  @HostListener('mouseup', ['$event'])
-  mouseup(e: any) {
-    //activate Form on first 
-    this.mouseDown = 'isUp'
-    this.target = undefined
-
-  }
 
 
 
