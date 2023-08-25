@@ -20,18 +20,24 @@ export class AppComponent {
   //--------------------------------------------
   //All shit
   // edit
+  centiesY: any
+  centiesX: any
 
   mouseDown = 'isUp'
   formOnSite = false
   isSeventeen = false
   target: any
   el: any = undefined
-
+  startLeft: any = undefined
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
+    this.el = document.getElementsByClassName('formSquare')[0]
     this.mouseDown = 'isDown'
     this.target = e.target.className
-    console.log(e.target.className, this.target)
+    this.startLeft =
+      this.centiesX = e.clientX - this.el?.style.left.split('px')[0]
+    this.centiesY = e.clientY - this.el?.style.top.split('px')[0]
+
     if (this.formOnSite === false && e.target.className === 'formSquare') {
       this.el = document.getElementsByClassName('formSquare')[0]
       let screen = document.getElementsByClassName('screen')[0]
@@ -41,31 +47,31 @@ export class AppComponent {
       this.el.style.position = 'absolute'
       this.el.style.top = 60 + 'px'
       this.el.style.left = 20 + 'px'
+      this.el.style.width = 100 + 'px'
+      this.el.style.height = 100 + 'px'
       this.formOnSite = true
 
       this.addResizePoint()
     }
-    if (e.target.className === 'formSquare__handler--bottomRight') {
-      this.target = e.target.className
-    }
   }
+
   square: any
   wasInitialised = 'didNotPass'
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
-    this.el = document.getElementsByClassName('formSquare')[0]
     if (this.mouseDown === 'isDown' && this.target === 'formSquare') {
-      console.log(this.el)
-      this.el.style.top = e.clientY + 'px'
-      this.el.style.left = e.clientX + 'px'
+      this.el = document.getElementsByClassName('formSquare')[0]
+
+      this.el.style.top = e.clientY - this.centiesY + 'px'
+      this.el.style.left = e.clientX - this.centiesX + 'px'
     }
-    else if (this.mouseDown === 'isDown' && this.target === '.formSquare__handler--bottomRight') {
-      this.el.style.height = e.clientY - 100 + 'px'
-      this.el.style.width = e.clientX - 100 + 'px'
-    }
-    if (+this.el.style.top.split('px')[0] > 120) {
-      this.formOnSite === true
-    }
+    // else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
+    //   this.el.style.height = e.clientY - 240 + 'px'
+    //   this.el.style.width = e.clientX - 90 + 'px'
+    // }
+    // if (+this.el.style.top.split('px')[0] > 120) {
+    //   this.formOnSite === true
+    // }
     //not sure where to use you
   }
   @HostListener('mouseup', ['$event'])
