@@ -64,8 +64,9 @@ export class AppComponent {
       this.el.style.left = e.clientX - this.centiesX + 'px'
     }
     else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
-      this.el.style.height = e.clientY - 240 + 'px'
-      this.el.style.width = e.clientX - 90 + 'px'
+      this.el.style.height = e.clientY - this.el.style.top.split('px')[0] + 'px'
+      this.el.style.width = e.clientX - this.el.style.left.split('px')[0] + 'px'
+      console.log(e.clientY)
     }
     // if (+this.el.style.top.split('px')[0] > 120) {
     //   this.formOnSite === true
