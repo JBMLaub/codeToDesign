@@ -25,17 +25,17 @@ export class AppComponent {
 
   mouseDown = 'isUp'
   formOnSite = false
-  isSeventeen = false
   target: any
   el: any = undefined
   startLeft: any = undefined
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
+    //necessary?
     this.el = document.getElementsByClassName('formSquare')[0]
     this.mouseDown = 'isDown'
     this.target = e.target.className
-    this.startLeft =
-      this.centiesX = e.clientX - this.el?.style.left.split('px')[0]
+    //------------------------------------------------------------
+    this.centiesX = e.clientX - this.el?.style.left.split('px')[0]
     this.centiesY = e.clientY - this.el?.style.top.split('px')[0]
 
     if (this.formOnSite === false && e.target.className === 'formSquare') {
@@ -47,37 +47,40 @@ export class AppComponent {
       this.el.style.position = 'absolute'
       this.el.style.top = 60 + 'px'
       this.el.style.left = 20 + 'px'
-      this.el.style.width = 100 + 'px'
-      this.el.style.height = 100 + 'px'
-      this.formOnSite = true
-
+      // this.el.style.width = 100 + 'px'
+      // this.el.style.height = 100 + 'px'
       this.addResizePoint()
+      console.log(this.el.style.top.split('px')[0])
+      if (this.el.style.top.split('px')[0] > 120) {
+        this.formOnSite = true
+      }
     }
   }
 
-  square: any
-  wasInitialised = 'didNotPass'
+
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
     if (this.mouseDown === 'isDown' && this.target === 'formSquare') {
       this.el.style.top = e.clientY - this.centiesY + 'px'
       this.el.style.left = e.clientX - this.centiesX + 'px'
+
     }
     else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
       this.el.style.height = e.clientY - this.el.style.top.split('px')[0] + 'px'
       this.el.style.width = e.clientX - this.el.style.left.split('px')[0] + 'px'
-      console.log(e.clientY)
     }
-    // if (+this.el.style.top.split('px')[0] > 120) {
-    //   this.formOnSite === true
-    // }
-    //not sure where to use you
+    if (this.formOnSite) {
+      this.makeFullWidth()
+      console.log('hi from mousemove as awake')
+    }
   }
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
     //activate Form on first 
-    this.mouseDown = 'isUp'
-    this.target = undefined
+    if ('isGrabingForm') {
+      this.mouseDown = 'isUp'
+      this.target = undefined
+    }
   }
 
 
