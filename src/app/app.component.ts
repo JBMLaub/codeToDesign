@@ -64,19 +64,25 @@ export class AppComponent {
     if (this.mouseDown === 'isDown' && this.target === 'formSquare') {
       this.el.style.top = e.clientY - this.centiesY + 'px'
       this.el.style.left = e.clientX - this.centiesX + 'px'
+      if (this.el.style.top.split('px')[0] < 0 && this.findScrollDirection(e) === 'top') {
+        this.el.style.top = '0px'
+      }
     }
 
-    // else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
-    //   this.el.style.height = e.clientY - +this.el.style.top.split('px')[0] + 'px'
-    //   this.el.style.width = e.clientX - +this.el.style.left.split('px')[0] + 'px'
-    // }
+    else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
+      this.el.style.height = e.clientY - +this.el.style.top.split('px')[0] + 'px'
+      this.el.style.width = e.clientX - +this.el.style.left.split('px')[0] + 'px'
+    }
+
+    else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--middleBottom') {
+      this.el.style.height = e.clientY - 100 + 'px'
+    }
 
 
 
-
-
-    if (this.el.style.top.split('px')[0] < 20 && this.el.style.top.split('px')[0] > 0 && this.findScrollDirection(e) === 'top') {
-
+    if (this.el.style.top.split('px')[0] < 20 && this.findScrollDirection(e) === 'top') {
+      this.removeResizePoint()
+      this.addMiddleBottomPoint()
       this.stickToTop()
     }
 
@@ -88,13 +94,20 @@ export class AppComponent {
     this.target = undefined
   }
 
-
+  removeResizePoint() {
+    const bottomRight = document.getElementsByClassName("formSquare__handler--bottomRight")[0];
+    bottomRight?.remove()
+  }
   addResizePoint() {
     const bottomRight = document.createElement("div");
     bottomRight.classList.add('formSquare__handler--bottomRight')
     this.el.insertBefore(bottomRight, this.el.firstElementChild)
   }
-
+  addMiddleBottomPoint() {
+    const middleBottom = document.createElement("div");
+    middleBottom.classList.add('formSquare__handler--middleBottom')
+    this.el.insertBefore(middleBottom, this.el.firstElementChild)
+  }
   stickToTop() {
     this.el = document.getElementsByClassName('formSquare')[0]
 
