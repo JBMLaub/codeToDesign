@@ -22,65 +22,70 @@ export class AppComponent {
   // edit
   centiesY: any
   centiesX: any
-
+  cursorDirection: any
+  current: any
+  last: any
   mouseDown = 'isUp'
-  formOnSite = false
+  firstShape = 'sleeping'
   target: any
   el: any = undefined
-  startLeft: any = undefined
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     //necessary?
     this.el = document.getElementsByClassName('formSquare')[0]
     this.mouseDown = 'isDown'
     this.target = e.target.className
+    this.last = +this.el.style.top.split('px')[0]
     //------------------------------------------------------------
     this.centiesX = e.clientX - this.el?.style.left.split('px')[0]
     this.centiesY = e.clientY - this.el?.style.top.split('px')[0]
 
-    if (this.formOnSite === false && e.target.className === 'formSquare') {
+
+    if (this.firstShape === 'sleeping' && e.target.className === 'formSquare') {
       this.el = document.getElementsByClassName('formSquare')[0]
       let screen = document.getElementsByClassName('screen')[0]
       screen.insertBefore(this.el, screen.firstElementChild);
 
       this.el.style.boxSizing = 'border-box'
       this.el.style.position = 'absolute'
-      this.el.style.top = 60 + 'px'
-      this.el.style.left = 20 + 'px'
-      // this.el.style.width = 100 + 'px'
-      // this.el.style.height = 100 + 'px'
+      this.el.style.top = '50px'
+      this.el.style.left = '40px'
+
+      //create full width when touching the top border
       this.addResizePoint()
-      console.log(this.el.style.top.split('px')[0])
-      if (this.el.style.top.split('px')[0] > 120) {
-        this.formOnSite = true
-      }
     }
   }
 
 
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
+    this.el = document.getElementsByClassName('formSquare')[0]
+
     if (this.mouseDown === 'isDown' && this.target === 'formSquare') {
       this.el.style.top = e.clientY - this.centiesY + 'px'
       this.el.style.left = e.clientX - this.centiesX + 'px'
+    }
 
+    // else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
+    //   this.el.style.height = e.clientY - +this.el.style.top.split('px')[0] + 'px'
+    //   this.el.style.width = e.clientX - +this.el.style.left.split('px')[0] + 'px'
+    // }
+
+
+
+
+
+    if (this.el.style.top.split('px')[0] < 20 && this.el.style.top.split('px')[0] > 0 && this.findScrollDirection(e) === 'top') {
+
+      this.stickToTop()
     }
-    else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
-      this.el.style.height = e.clientY - this.el.style.top.split('px')[0] + 'px'
-      this.el.style.width = e.clientX - this.el.style.left.split('px')[0] + 'px'
-    }
-    if (this.formOnSite) {
-      this.makeFullWidth()
-      console.log('hi from mousemove as awake')
-    }
+
   }
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
     //activate Form on first 
-    if ('isGrabingForm') {
-      this.mouseDown = 'isUp'
-      this.target = undefined
-    }
+    this.mouseDown = 'isUp'
+    this.target = undefined
   }
 
 
@@ -90,8 +95,11 @@ export class AppComponent {
     this.el.insertBefore(bottomRight, this.el.firstElementChild)
   }
 
-  makeFullWidth() {
+  stickToTop() {
+    this.el = document.getElementsByClassName('formSquare')[0]
+
     this.el.style.left = '0px'
+    this.el.style.top = '0px'
     this.el.style.width = '100%'
   }
 
@@ -121,7 +129,25 @@ export class AppComponent {
   //playground
 
 
+  //archive
+  // ---------find scroll direction ---------------
+  // on mousemove
+  direction = ""
+  oldy = 0
+  findScrollDirection(e: any) {
 
+    if (e.pageY < this.oldy) {
+      this.direction = 'top';
+
+    } else if (e.pageY > this.oldy) {
+      this.direction = 'bottom';
+    }
+
+    this.oldy = e.pageY;
+    console.log(this.direction)
+    return this.direction
+  }
+  // -------------------------------------------------------------
 
 
 }
