@@ -23,10 +23,7 @@ export class AppComponent {
   centiesY: any
   centiesX: any
   cursorDirection: any
-  current: any
-  last: any
   mouseDown = 'isUp'
-  firstShape = 'sleeping'
   target: any
   el: any = undefined
   @HostListener('mousedown', ['$event'])
@@ -35,14 +32,13 @@ export class AppComponent {
     this.el = document.getElementsByClassName('formSquare')[0]
     this.mouseDown = 'isDown'
     this.target = e.target.className
-    this.last = +this.el.style.top.split('px')[0]
+
     //------------------------------------------------------------
     this.centiesX = e.clientX - this.el?.style.left.split('px')[0]
     this.centiesY = e.clientY - this.el?.style.top.split('px')[0]
 
 
-    if (this.firstShape === 'sleeping' && e.target.className === 'formSquare') {
-      this.el = document.getElementsByClassName('formSquare')[0]
+    if (e.target.className === 'formSquare') {
       let screen = document.getElementsByClassName('screen')[0]
       screen.insertBefore(this.el, screen.firstElementChild);
 
@@ -53,14 +49,13 @@ export class AppComponent {
 
       //create full width when touching the top border
       this.addResizePoint()
+
     }
   }
 
 
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
-    this.el = document.getElementsByClassName('formSquare')[0]
-
     if (this.mouseDown === 'isDown' && this.target === 'formSquare') {
       this.el.style.top = e.clientY - this.centiesY + 'px'
       this.el.style.left = e.clientX - this.centiesX + 'px'
@@ -92,6 +87,17 @@ export class AppComponent {
     //activate Form on first 
     this.mouseDown = 'isUp'
     this.target = undefined
+    //if navMenues
+    const navMenues = document.getElementsByClassName('navMenues initForms')[0]
+    if (navMenues) {
+      if (navMenues.getElementsByClassName('formSquare')[0] === undefined) {
+        const formSquare1 = document.createElement("div");
+        formSquare1.classList.add('formSquare')
+        navMenues.insertBefore(formSquare1, this.el.firstElementChild)
+      }
+    }
+    console.log('navMenues' + navMenues)
+    // this.checkForSquareParent --> if yes --> check for form --> if no --> insert mew fpork
   }
 
   removeResizePoint() {
