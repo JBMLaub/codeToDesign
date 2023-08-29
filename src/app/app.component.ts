@@ -42,7 +42,6 @@ export class AppComponent {
     //create full width when touching the top border
     if (this.active.name === 'formSquare 0' && !this.active.landed) {
       this.addBottomRightPoint()
-      this.active.node = document.getElementsByClassName('formSquare 0')[0]
       let screen = document.getElementsByClassName('screen')[0]
       screen.insertBefore(this.active.node, screen.firstElementChild);
       this.active.node.style.boxSizing = 'border-box'
@@ -56,7 +55,6 @@ export class AppComponent {
   mousemove(e: any) {
     if (this.mouseDown === 'isDown') {
 
-      this.active.node = document.getElementsByClassName('formSquare 0')[0]
       if (this.active.name === 'formSquare 0') {
         this.active.node.style.top = e.clientY - this.centiesY + 'px'
         this.active.node.style.left = e.clientX - this.centiesX + 'px'
@@ -112,7 +110,6 @@ export class AppComponent {
     this.active.node.insertBefore(middleBottom, this.active.node.firstElementChild)
   }
   stickToTop() {
-    this.active.node = document.getElementsByClassName('formSquare 0')[0]
     this.active.node.style.left = '0px'
     this.active.node.style.top = '0px'
     this.active.node.style.width = '100%'
