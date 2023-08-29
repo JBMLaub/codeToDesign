@@ -25,6 +25,7 @@ export class AppComponent {
     node: undefined,
     landed: false
   }
+  squaresCounter: any = 1
   centiesY: any
   centiesX: any
   cursorDirection: any
@@ -33,15 +34,15 @@ export class AppComponent {
   mousedown(e: any) {
     //necessary?
     this.mouseDown = 'isDown'
-    this.active.node = document.getElementsByClassName('formSquare')[0]
+    this.active.node = document.getElementsByClassName('formSquare 0')[0]
     this.active.name = e.target.className
     //------------------------------------------------------------
     this.centiesX = e.clientX - this.active.node?.style.left.split('px')[0]
     this.centiesY = e.clientY - this.active.node?.style.top.split('px')[0]
     //create full width when touching the top border
-    if (this.active.name === 'formSquare' && !this.active.landed) {
+    if (this.active.name === 'formSquare 0' && !this.active.landed) {
       this.addBottomRightPoint()
-      this.active.node = document.getElementsByClassName('formSquare')[0]
+      this.active.node = document.getElementsByClassName('formSquare 0')[0]
       let screen = document.getElementsByClassName('screen')[0]
       screen.insertBefore(this.active.node, screen.firstElementChild);
       this.active.node.style.boxSizing = 'border-box'
@@ -55,8 +56,8 @@ export class AppComponent {
   mousemove(e: any) {
     if (this.mouseDown === 'isDown') {
 
-      this.active.node = document.getElementsByClassName('formSquare')[0]
-      if (this.active.name === 'formSquare') {
+      this.active.node = document.getElementsByClassName('formSquare 0')[0]
+      if (this.active.name === 'formSquare 0') {
         this.active.node.style.top = e.clientY - this.centiesY + 'px'
         this.active.node.style.left = e.clientX - this.centiesX + 'px'
         if (this.active.node.style.top.split('px')[0] < 0) {
@@ -85,13 +86,15 @@ export class AppComponent {
     this.active.name = undefined
     //if navMenues
     const squareParent = document.getElementsByClassName('navMenues initForms')[0]
-    // if (squareParent) {
-    //   if (squareParent.getElementsByClassName('formSquare')[0] === undefined) {
-    //     const formSquare1 = document.createElement("div");
-    //     formSquare1.classList.add('formSquare')
-    //     squareParent.insertBefore(formSquare1, squareParent.firstElementChild)
-    //   }
-    // }
+    if (squareParent) {
+      if (squareParent.getElementsByClassName('formSquare ' + (this.squaresCounter - 1))[0] === undefined) {
+        const formSquare1 = document.createElement("div");
+        formSquare1.classList.add('formSquare')
+        formSquare1.classList.add(this.squaresCounter)
+        squareParent.insertBefore(formSquare1, squareParent.firstElementChild)
+        this.squaresCounter++
+      }
+    }
   }
 
   removeBottomRightPoint() {
@@ -109,7 +112,7 @@ export class AppComponent {
     this.active.node.insertBefore(middleBottom, this.active.node.firstElementChild)
   }
   stickToTop() {
-    this.active.node = document.getElementsByClassName('formSquare')[0]
+    this.active.node = document.getElementsByClassName('formSquare 0')[0]
     this.active.node.style.left = '0px'
     this.active.node.style.top = '0px'
     this.active.node.style.width = '100%'
