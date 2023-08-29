@@ -20,32 +20,34 @@ export class AppComponent {
   //--------------------------------------------
   //All shit
   // edit
-  isInitial: any = true
+  active: any = {
+    name: undefined,
+    node: undefined,
+    landed: false
+  }
   centiesY: any
   centiesX: any
   cursorDirection: any
   mouseDown = 'isUp'
-  target: any
-  el: any = undefined
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     //necessary?
-    this.el = document.getElementsByClassName('formSquare')[0]
     this.mouseDown = 'isDown'
-    this.target = e.target.className
+    this.active.node = document.getElementsByClassName('formSquare')[0]
+    this.active.name = e.target.className
     //------------------------------------------------------------
-    this.centiesX = e.clientX - this.el?.style.left.split('px')[0]
-    this.centiesY = e.clientY - this.el?.style.top.split('px')[0]
+    this.centiesX = e.clientX - this.active.node?.style.left.split('px')[0]
+    this.centiesY = e.clientY - this.active.node?.style.top.split('px')[0]
     //create full width when touching the top border
-    if (this.target === 'formSquare') {
+    if (this.active.name === 'formSquare' && !this.active.landed) {
       this.addBottomRightPoint()
-      this.el = document.getElementsByClassName('formSquare')[0]
+      this.active.node = document.getElementsByClassName('formSquare')[0]
       let screen = document.getElementsByClassName('screen')[0]
-      screen.insertBefore(this.el, screen.firstElementChild);
-      this.el.style.boxSizing = 'border-box'
-      this.el.style.position = 'absolute'
-      this.el.style.top = '-0px'
-      this.el.style.left = '0px'
+      screen.insertBefore(this.active.node, screen.firstElementChild);
+      this.active.node.style.boxSizing = 'border-box'
+      this.active.node.style.position = 'absolute'
+      this.active.node.style.top = '0px'
+      this.active.landed = true
     }
   }
 
@@ -53,34 +55,34 @@ export class AppComponent {
   mousemove(e: any) {
     if (this.mouseDown === 'isDown') {
 
-    }
-    this.el = document.getElementsByClassName('formSquare')[0]
-    if (this.mouseDown === 'isDown' && this.target === 'formSquare') {
-      this.el.style.top = e.clientY - this.centiesY + 'px'
-      this.el.style.left = e.clientX - this.centiesX + 'px'
-      // if (this.el.style.top.split('px')[0] < 0 && this.findScrollDirection(e) === 'top') {
-      //   this.el.style.top = '0px'
-      // }
-    }
-    else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
-      this.el.style.height = e.clientY - +this.el.style.top.split('px')[0] - 100 + 'px'
-      this.el.style.width = e.clientX - +this.el.style.left.split('px')[0] + 'px'
-    }
-    else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--middleBottom') {
-      this.el.style.height = e.clientY - 100 + 'px'
-    }
+      this.active.node = document.getElementsByClassName('formSquare')[0]
+      if (this.active.name === 'formSquare') {
+        this.active.node.style.top = e.clientY - this.centiesY + 'px'
+        this.active.node.style.left = e.clientX - this.centiesX + 'px'
+        if (this.active.node.style.top.split('px')[0] < 0) {
+          this.active.node.style.top = '0px'
+        }
+      }
+      else if (this.active.name === 'formSquare__handler--bottomRight') {
+        this.active.node.style.height = e.clientY - +this.active.node.style.top.split('px')[0] - 100 + 'px'
+        this.active.node.style.width = e.clientX - +this.active.node.style.left.split('px')[0] + 'px'
+      }
+      else if (this.active.name === 'formSquare__handler--middleBottom') {
+        this.active.node.style.height = e.clientY - 100 + 'px'
+      }
 
-    // if (this.mouseDown === 'isDown' && this.el.style.top.split('px')[0] < 20 && this.findScrollDirection(e) === 'top') {
-    //   this.removeBottomRightPoint()
-    //   this.addMiddleBottomPoint()
-    //   this.stickToTop()
-    // }
+      if (this.active.node.style.top.split('px')[0] < 20 && this.findScrollDirection(e) === 'top') {
+        this.removeBottomRightPoint()
+        this.addMiddleBottomPoint()
+        this.stickToTop()
+      }
+    }
   }
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
     //activate Form on first 
     this.mouseDown = 'isUp'
-    this.target = undefined
+    this.active.name = undefined
     //if navMenues
     const squareParent = document.getElementsByClassName('navMenues initForms')[0]
     // if (squareParent) {
@@ -99,23 +101,23 @@ export class AppComponent {
   addBottomRightPoint() {
     const bottomRight = document.createElement("div");
     bottomRight.classList.add('formSquare__handler--bottomRight')
-    this.el.insertBefore(bottomRight, this.el.firstElementChild)
+    this.active.node.insertBefore(bottomRight, this.active.node.firstElementChild)
   }
   addMiddleBottomPoint() {
     const middleBottom = document.createElement("div");
     middleBottom.classList.add('formSquare__handler--middleBottom')
-    this.el.insertBefore(middleBottom, this.el.firstElementChild)
+    this.active.node.insertBefore(middleBottom, this.active.node.firstElementChild)
   }
   stickToTop() {
-    this.el = document.getElementsByClassName('formSquare')[0]
-    this.el.style.left = '0px'
-    this.el.style.top = '0px'
-    this.el.style.width = '100%'
+    this.active.node = document.getElementsByClassName('formSquare')[0]
+    this.active.node.style.left = '0px'
+    this.active.node.style.top = '0px'
+    this.active.node.style.width = '100%'
   }
 
   colour: any
   myInput() {
-    this.el.style.backgroundColor = this.colour
+    this.active.node.style.backgroundColor = this.colour
   }
 
   //--------------------------------------
