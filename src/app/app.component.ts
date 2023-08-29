@@ -8,7 +8,7 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 export class AppComponent {
   title = 'designToCode';
 
-  // topBttons
+  // Nav Buttons
   isActive = 'Typing'
   navButtons = ["Forms", "Edit", "Typing", "Positioning", "Add Ins", "User"]
   selectedButton(button: any) {
@@ -20,6 +20,7 @@ export class AppComponent {
   //--------------------------------------------
   //All shit
   // edit
+  isInitial: any = true
   centiesY: any
   centiesX: any
   cursorDirection: any
@@ -32,55 +33,48 @@ export class AppComponent {
     this.el = document.getElementsByClassName('formSquare')[0]
     this.mouseDown = 'isDown'
     this.target = e.target.className
-
     //------------------------------------------------------------
     this.centiesX = e.clientX - this.el?.style.left.split('px')[0]
     this.centiesY = e.clientY - this.el?.style.top.split('px')[0]
-
-
-    if (e.target.className === 'formSquare') {
+    //create full width when touching the top border
+    if (this.target === 'formSquare') {
+      this.addBottomRightPoint()
+      this.el = document.getElementsByClassName('formSquare')[0]
       let screen = document.getElementsByClassName('screen')[0]
       screen.insertBefore(this.el, screen.firstElementChild);
-
       this.el.style.boxSizing = 'border-box'
       this.el.style.position = 'absolute'
-      this.el.style.top = '50px'
-      this.el.style.left = '40px'
-
-      //create full width when touching the top border
-      this.addResizePoint()
-
+      this.el.style.top = '-0px'
+      this.el.style.left = '0px'
     }
   }
 
-
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
+    if (this.mouseDown === 'isDown') {
+
+    }
+    this.el = document.getElementsByClassName('formSquare')[0]
     if (this.mouseDown === 'isDown' && this.target === 'formSquare') {
       this.el.style.top = e.clientY - this.centiesY + 'px'
       this.el.style.left = e.clientX - this.centiesX + 'px'
-      if (this.el.style.top.split('px')[0] < 0 && this.findScrollDirection(e) === 'top') {
-        this.el.style.top = '0px'
-      }
+      // if (this.el.style.top.split('px')[0] < 0 && this.findScrollDirection(e) === 'top') {
+      //   this.el.style.top = '0px'
+      // }
     }
-
     else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--bottomRight') {
-      this.el.style.height = e.clientY - +this.el.style.top.split('px')[0] + 'px'
+      this.el.style.height = e.clientY - +this.el.style.top.split('px')[0] - 100 + 'px'
       this.el.style.width = e.clientX - +this.el.style.left.split('px')[0] + 'px'
     }
-
     else if (this.mouseDown === 'isDown' && this.target === 'formSquare__handler--middleBottom') {
       this.el.style.height = e.clientY - 100 + 'px'
     }
 
-
-
-    if (this.el.style.top.split('px')[0] < 20 && this.findScrollDirection(e) === 'top') {
-      this.removeResizePoint()
-      this.addMiddleBottomPoint()
-      this.stickToTop()
-    }
-
+    // if (this.mouseDown === 'isDown' && this.el.style.top.split('px')[0] < 20 && this.findScrollDirection(e) === 'top') {
+    //   this.removeBottomRightPoint()
+    //   this.addMiddleBottomPoint()
+    //   this.stickToTop()
+    // }
   }
   @HostListener('mouseup', ['$event'])
   mouseup(e: any) {
@@ -88,23 +82,21 @@ export class AppComponent {
     this.mouseDown = 'isUp'
     this.target = undefined
     //if navMenues
-    const navMenues = document.getElementsByClassName('navMenues initForms')[0]
-    if (navMenues) {
-      if (navMenues.getElementsByClassName('formSquare')[0] === undefined) {
-        const formSquare1 = document.createElement("div");
-        formSquare1.classList.add('formSquare')
-        navMenues.insertBefore(formSquare1, this.el.firstElementChild)
-      }
-    }
-    console.log('navMenues' + navMenues)
-    // this.checkForSquareParent --> if yes --> check for form --> if no --> insert mew fpork
+    const squareParent = document.getElementsByClassName('navMenues initForms')[0]
+    // if (squareParent) {
+    //   if (squareParent.getElementsByClassName('formSquare')[0] === undefined) {
+    //     const formSquare1 = document.createElement("div");
+    //     formSquare1.classList.add('formSquare')
+    //     squareParent.insertBefore(formSquare1, squareParent.firstElementChild)
+    //   }
+    // }
   }
 
-  removeResizePoint() {
+  removeBottomRightPoint() {
     const bottomRight = document.getElementsByClassName("formSquare__handler--bottomRight")[0];
     bottomRight?.remove()
   }
-  addResizePoint() {
+  addBottomRightPoint() {
     const bottomRight = document.createElement("div");
     bottomRight.classList.add('formSquare__handler--bottomRight')
     this.el.insertBefore(bottomRight, this.el.firstElementChild)
@@ -116,7 +108,6 @@ export class AppComponent {
   }
   stickToTop() {
     this.el = document.getElementsByClassName('formSquare')[0]
-
     this.el.style.left = '0px'
     this.el.style.top = '0px'
     this.el.style.width = '100%'
@@ -163,7 +154,6 @@ export class AppComponent {
     }
 
     this.oldy = e.pageY;
-    console.log(this.direction)
     return this.direction
   }
   // -------------------------------------------------------------
