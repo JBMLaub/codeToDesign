@@ -4,24 +4,6 @@
     position:relative;
 }
 //activeShape
-    .formSquare__handler--topLeft{
-        position: absolute;
-        top:-6px;
-        left:-6px;
-        width:12px; 
-        height:12px;
-        background-color: orange;
-        border-radius: 50%;
-       }
- .formSquare__handler--topRight {
-     position: absolute;
-     top: -12px;
-     right: -12px;
-     width: 24px;
-     height: 24px;
-     background-color: orange;
-     border-radius: 50%;
- }
   .formSquare__handler--bottomRight {
       position: absolute;
       bottom: -12px;
@@ -31,16 +13,7 @@
       background-color: orange;
       border-radius: 50%;
   }
-   .formSquare__handler--bottomLeft {
-       position: absolute;
-       bottom: -6px;
-       left: -6px;
-       width: 12px;
-       height: 12px;
-       background-color: orange;
-       border-radius: 50%;
-   }
-    .formSquare__handler--middleBottom {
+ .formSquare__handler--middleBottom {
         position: absolute;
         bottom: -6px;
         left: calc(50% - 6px);

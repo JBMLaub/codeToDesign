@@ -15,15 +15,47 @@ export class AppComponent {
     this.isActive = button
   }
   //-------------------------------------------
-
   // forms
   //--------------------------------------------
-  //All shit
   // edit
+  makeFullWidth() {
+    this.active.node.style.width = '100%'
+  }
+  colour: any
+  myInput() {
+    this.active.node.style.backgroundColor = this.colour
+  }
+  //--------------------------------------
+  // typing
+  //make this selection  work
+  littleFormSelection = 'Times New Roman'
+  littleFormWindow = 'Sans Serif'
+  //make this selecion work
+  littleFormFonts = ['Sans Serif', 'Montserrat', 'Arial Narrow', "Courier New"]
+  //make counter work
+  counterWindow = ['5', '8', '10', '11', '12', '13', '14', '15', '16']
+  //make color work
+  color = 'orange'
+  colours = []
+  //----------------------------------------
+
+  // positioning - space between, space around, center hor, center vert, center 1-9
+  // addins - googl maps with locactions
+  // user - name, e-mail.password
+
+  //Fixed  - Menu, edit
+  //Dynamic - rightBottom, middleBottom, dotted border, measure sticks, adjust to top, 
+  //Numbers - numbersArray: name, node, landed, style,children, 
+
+  //screen
   active: any = {
     name: undefined,
     node: undefined,
     landed: false
+  }
+  numbersArray: any = []
+  dynamic: any = {
+    name: undefined
   }
   squaresCounter: any = 1
   centiesY: any
@@ -32,15 +64,21 @@ export class AppComponent {
   mouseDown = 'isUp'
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
-    //necessary?
+    //Numbers
     this.mouseDown = 'isDown'
-    this.active.node = document.getElementsByClassName('formSquare 0')[0]
-    this.active.name = e.target.className
-    //------------------------------------------------------------
+    if (this.fixedNames(e.target.className) != 'fixedName') {
+      this.active.name = e.target.className + ' ' + Math.random().toFixed(7)
+      this.active.node = document.getElementsByClassName(this.active.name)[0]
+      this.numbersArray.push(this.active)
+    } else if (e.target.className === 'formSquare__handler--bottomRight') {
+      this.dynamic.name = 'formSquare__handler--bottomRight'
+    } else if (e.target.className === 'formSquare__handler--middleBottom') {
+      this.dynamic.name = 'formSquare__handler--middleBottom'
+    }
+
     this.centiesX = e.clientX - this.active.node?.style.left.split('px')[0]
     this.centiesY = e.clientY - this.active.node?.style.top.split('px')[0]
-    //create full width when touching the top border
-    if (this.active.name === 'formSquare 0' && !this.active.landed) {
+    if (this.fixedNames(e.target.className) != 'fixedName' && !this.active.landed) {
       this.addBottomRightPoint()
       let screen = document.getElementsByClassName('screen')[0]
       screen.insertBefore(this.active.node, screen.firstElementChild);
@@ -62,11 +100,11 @@ export class AppComponent {
           this.active.node.style.top = '0px'
         }
       }
-      else if (this.active.name === 'formSquare__handler--bottomRight') {
+      else if (this.dynamic.name === 'formSquare__handler--bottomRight') {
         this.active.node.style.height = e.clientY - +this.active.node.style.top.split('px')[0] - 100 + 'px'
         this.active.node.style.width = e.clientX - +this.active.node.style.left.split('px')[0] + 'px'
       }
-      else if (this.active.name === 'formSquare__handler--middleBottom') {
+      else if (this.dynamic.name === 'formSquare__handler--middleBottom') {
         this.active.node.style.height = e.clientY - 100 + 'px'
       }
 
@@ -95,6 +133,34 @@ export class AppComponent {
     }
   }
 
+  direction = ""
+  oldy = 0
+  findScrollDirection(e: any) {
+
+    if (e.pageY < this.oldy) {
+      this.direction = 'top';
+
+    } else if (e.pageY > this.oldy) {
+      this.direction = 'bottom';
+    }
+
+    this.oldy = e.pageY;
+    return this.direction
+  }
+
+  fixedNames(fixedName: any) {
+    let fixedNames = ['formSquare__handler--bottomRight', 'formSquare__handler--middleBottom',
+      'nav__button']
+    for (let index = 0; index < fixedNames.length; index++) {
+      const element = fixedNames[index];
+      if (element === fixedName) {
+        fixedName = 'fixedName'
+      }
+    }
+    return fixedName
+  }
+
+
   removeBottomRightPoint() {
     const bottomRight = document.getElementsByClassName("formSquare__handler--bottomRight")[0];
     bottomRight?.remove()
@@ -115,51 +181,6 @@ export class AppComponent {
     this.active.node.style.width = '100%'
   }
 
-  colour: any
-  myInput() {
-    this.active.node.style.backgroundColor = this.colour
-  }
-
-  //--------------------------------------
-
-  // typing
-  littleFormSelection = 'Times New Roman'
-  littleFormWindow = 'Sans Serif'
-  littleFormFonts = ['Sans Serif', 'Montserrat', 'Arial Narrow', "Courier New"]
-
-  counterWindow = ['5', '8', '10', '11', '12', '13', '14', '15', '16']
-
-  color = 'orange'
-  colours = []
-  //----------------------------------------
-
-  // positioning
-  // addins
-  // user
-
-
-  //playground
-
-
-  //archive
-  // ---------find scroll direction ---------------
-  // on mousemove
-  direction = ""
-  oldy = 0
-  findScrollDirection(e: any) {
-
-    if (e.pageY < this.oldy) {
-      this.direction = 'top';
-
-    } else if (e.pageY > this.oldy) {
-      this.direction = 'bottom';
-    }
-
-    this.oldy = e.pageY;
-    return this.direction
-  }
-  // -------------------------------------------------------------
-
-
 }
+
 
