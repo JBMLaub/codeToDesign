@@ -10,6 +10,7 @@
     }
     .littleForm__window {
         background-color: white;
+        z-index: 1000;
         position: absolute;
         width: 150px ;
         height: 500px;

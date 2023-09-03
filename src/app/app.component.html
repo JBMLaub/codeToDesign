@@ -8,13 +8,13 @@
   </app-nav-button>
 </div>
 
-<div class="navMenues initForms" *ngIf="isActive === 'Forms'">
+<div class="navExtension initForms" *ngIf="isActive === 'Forms'">
   <div class="formSquare 0"></div>
   <div class="formCircle"></div>
   <div class="formText">Text</div>
 </div>
 
-<div class="navMenues" *ngIf="isActive === 'Edit'">
+<div class="navExtension" *ngIf="isActive === 'Edit'">
   <button (click)="stickToTop()">100% breit</button>
   <input
     (click)="myInput()"
@@ -23,7 +23,7 @@
     class="cpEdit"
   />
 </div>
-<div class="navMenues" *ngIf="isActive === 'Typing'">
+<div class="navExtension" *ngIf="isActive === 'Typing'">
   <app-little-form
     [littleFormWindow]="littleFormWindow"
     [littleFormSelection]="littleFormSelection"
@@ -55,7 +55,7 @@
   </div>
 </div>
 
-<div class="navMenues" *ngIf="isActive === 'Positioning'">
+<div class="navExtension" *ngIf="isActive === 'Positioning'">
   <div><i class="bi bi-align-center icon-size"></i></div>
   <div class="icon"><i class="bi bi-align-end icon-size"></i></div>
   <div class="icon"><i class="bi bi-align-middle icon-size"></i></div>
@@ -63,7 +63,7 @@
   <div class="icon"><i class="bi bi-align-top icon-size"></i></div>
 </div>
 
-<div class="navMenues" *ngIf="isActive === 'Add Ins'">
+<div class="navExtension" *ngIf="isActive === 'Add Ins'">
   <div><i class="bi bi-camera icon-size"></i></div>
   <div class="icon"><i class="bi bi-link icon-size"></i></div>
 </div>

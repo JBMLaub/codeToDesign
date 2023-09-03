@@ -15,9 +15,11 @@ export class AppComponent {
     this.isActive = button
   }
   //-------------------------------------------
-  // forms
+  //forms
+  //click
   //--------------------------------------------
   // edit
+  //boder radius
   makeFullWidth() {
     this.active.node.style.width = '100%'
   }
@@ -28,11 +30,15 @@ export class AppComponent {
   //--------------------------------------
   // typing
   //make this selection  work
+  //is selction working? what is selected and how
   littleFormSelection = 'Times New Roman'
   littleFormWindow = 'Sans Serif'
   //make this selecion work
+  //what is selected and how
+  //hilight hover
   littleFormFonts = ['Sans Serif', 'Montserrat', 'Arial Narrow', "Courier New"]
   //make counter work
+  //highlight hover
   counterWindow = ['5', '8', '10', '11', '12', '13', '14', '15', '16']
   //make color work
   color = 'orange'
@@ -40,63 +46,56 @@ export class AppComponent {
   //----------------------------------------
 
   // positioning - space between, space around, center hor, center vert, center 1-9
-  // addins - googl maps with locactions
-  // user - name, e-mail.password
+  //  parent display flex,space between,space around, justifyContent center, alignItems center
+  // addins - googl maps with locactions and comments
+  // user - name, e-mail, password
 
-  //Fixed  - Menu, edit
-  //Dynamic - rightBottom, middleBottom, dotted border, measure sticks, adjust to top, 
-  //Numbers - numbersArray: name, node, landed, style,children, 
+  //Fixed - Menu, edit - resolve all positions, jump into screen
+  //Dynamic - rightBottom, middleBottom, dotted border v2, highlight collction, measure sticks - what sticks,
+  //  adjust to top, build groups, show vert and hor alignment of child
+  //Numbers - place into children, remove from old position
 
   //screen
   active: any = {
     name: undefined,
     node: undefined,
-    landed: false
+    style: undefined,
+    children: []
   }
   numbersArray: any = []
   dynamic: any = {
     name: undefined
   }
-  squaresCounter: any = 1
   centiesY: any
   centiesX: any
-  cursorDirection: any
   mouseDown = 'isUp'
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
-    //Numbers
     this.mouseDown = 'isDown'
-    if (this.fixedNames(e.target.className) != 'fixedName') {
-      this.active.name = e.target.className + ' ' + Math.random().toFixed(7)
-      this.active.node = document.getElementsByClassName(this.active.name)[0]
-      this.numbersArray.push(this.active)
-    } else if (e.target.className === 'formSquare__handler--bottomRight') {
-      this.dynamic.name = 'formSquare__handler--bottomRight'
-    } else if (e.target.className === 'formSquare__handler--middleBottom') {
-      this.dynamic.name = 'formSquare__handler--middleBottom'
+    //get active elment
+    if (typeof (e.target.className) === 'number' && e.clientY > 120) {
+      this.active.name = e.target.className
+      this.active.node = document.getElementsByClassName(e.target.className)[0]
+    } else {
+      //not necessarily
+      this.dynamic.name = e.target.className
     }
-
-    this.centiesX = e.clientX - this.active.node?.style.left.split('px')[0]
-    this.centiesY = e.clientY - this.active.node?.style.top.split('px')[0]
-    if (this.fixedNames(e.target.className) != 'fixedName' && !this.active.landed) {
-      this.addBottomRightPoint()
-      let screen = document.getElementsByClassName('screen')[0]
-      screen.insertBefore(this.active.node, screen.firstElementChild);
-      this.active.node.style.boxSizing = 'border-box'
-      this.active.node.style.position = 'absolute'
-      this.active.node.style.top = '0px'
-      this.active.landed = true
-    }
+    //active item
+    //numbersArray[4].children.push()
+    //parntelement.insertBefore(newElement, numbersArray[4].children[2])
+    //numbers.splice(2, 0, 'three');2 equals into position 3
+    //hoverOver: get hoivered id, find id, insert object into its children, delete last position or do nothing if from menu
+    this.centiesX = e.clientX - +this.active.node?.style.left.split('px')[0]
+    this.centiesY = e.clientY - +this.active.node?.style.top.split('px')[0]
   }
-
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
     if (this.mouseDown === 'isDown') {
-
-      if (this.active.name === 'formSquare 0') {
+      if (typeof (this.active.name) === 'number') {
+        //tell Listener what is dragstart currently
         this.active.node.style.top = e.clientY - this.centiesY + 'px'
         this.active.node.style.left = e.clientX - this.centiesX + 'px'
-        if (this.active.node.style.top.split('px')[0] < 0) {
+        if (+this.active.node.style.top.split('px')[0] < 0) {
           this.active.node.style.top = '0px'
         }
       }
@@ -107,7 +106,6 @@ export class AppComponent {
       else if (this.dynamic.name === 'formSquare__handler--middleBottom') {
         this.active.node.style.height = e.clientY - 100 + 'px'
       }
-
       if (this.active.node.style.top.split('px')[0] < 20 && this.findScrollDirection(e) === 'top') {
         this.removeBottomRightPoint()
         this.addMiddleBottomPoint()
@@ -119,47 +117,38 @@ export class AppComponent {
   mouseup(e: any) {
     //activate Form on first 
     this.mouseDown = 'isUp'
-    this.active.name = undefined
-    //if navMenues
-    const squareParent = document.getElementsByClassName('navMenues initForms')[0]
-    if (squareParent) {
-      if (squareParent.getElementsByClassName('formSquare ' + (this.squaresCounter - 1))[0] === undefined) {
-        const formSquare1 = document.createElement("div");
-        formSquare1.classList.add('formSquare')
-        formSquare1.classList.add(this.squaresCounter)
-        squareParent.insertBefore(formSquare1, squareParent.firstElementChild)
-        this.squaresCounter++
-      }
+    //this.active.name = undefined
+    const squareParent = document.getElementsByClassName('navExtension initForms')[0]
+    if (squareParent?.getElementsByClassName('formSquare') === undefined) {
+      const newSquare = document.createElement("div");
+      newSquare.classList.add(Math.random().toFixed(7))
+      squareParent.insertBefore(newSquare, squareParent.firstElementChild)
     }
+    //resolve all fixed positions
+
+    //place number in shadow dom
+    // getTravelRoute 000
+    // this.numbersArray[0][0][0] = this.active
+
+
+    //  this.numbersArray[0].name if(this.numbersArray[0][0])this.numbersArray[0][0]
+    //  if(this.numbersArray[0])
+    //loop complete numbersArray for matching className - brute force
+    //numbersArray[0].children[0] if undefined go back and down
+    //  if nothing go back and down etc.
   }
 
   direction = ""
   oldy = 0
   findScrollDirection(e: any) {
-
     if (e.pageY < this.oldy) {
       this.direction = 'top';
-
     } else if (e.pageY > this.oldy) {
       this.direction = 'bottom';
     }
-
     this.oldy = e.pageY;
     return this.direction
   }
-
-  fixedNames(fixedName: any) {
-    let fixedNames = ['formSquare__handler--bottomRight', 'formSquare__handler--middleBottom',
-      'nav__button']
-    for (let index = 0; index < fixedNames.length; index++) {
-      const element = fixedNames[index];
-      if (element === fixedName) {
-        fixedName = 'fixedName'
-      }
-    }
-    return fixedName
-  }
-
 
   removeBottomRightPoint() {
     const bottomRight = document.getElementsByClassName("formSquare__handler--bottomRight")[0];
@@ -180,7 +169,19 @@ export class AppComponent {
     this.active.node.style.top = '0px'
     this.active.node.style.width = '100%'
   }
-
+  initiateSquare() {
+    this.active.name = Math.random().toFixed(7)
+    this.active.node = document.getElementsByClassName(this.active.name)[0]
+    //numbers.splice(2, 0, 'three');2 equals into position 3
+    this.numbersArray[0].children.splice(2, 0, this.active)
+    //insert equally into DOM
+    this.addBottomRightPoint()
+    let screen = document.getElementsByClassName('screen')[0]
+    screen.insertBefore(this.active.node, screen.firstElementChild);
+    // this.active.node.style.boxSizing = 'border-box'
+    this.active.node.style.position = 'absolute'
+    //not necessary
+  }
 }
 
 
