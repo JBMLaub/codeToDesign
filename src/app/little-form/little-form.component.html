@@ -9,7 +9,8 @@
     </div>
   </div>
   <div class="littleForm__window" *ngIf="windowState === 'open'">
-    <div *ngFor="let font of littleFormFonts">{{ font }}</div>
-    <div class="littleForm__selection">{{ littleFormWindow }}</div>
+    <div *ngFor="let font of littleFormFonts" (click)="returnSelection(font)">
+      {{ font }}
+    </div>
   </div>
 </div>

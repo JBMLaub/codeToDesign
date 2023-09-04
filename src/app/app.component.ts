@@ -16,7 +16,25 @@ export class AppComponent {
   }
   //-------------------------------------------
   //forms
-  //click
+  //on mouse down move to0 screen and stay with negative psotion values
+  addSquare() {
+    //what does it mean though
+    //numbers.splice(2, 0, 'three');2 equals into position 3
+    //insert equally into DOM
+    this.active.name = Math.random().toFixed(7)
+    this.active.node = document.createElement("div");
+    this.active.node.classList.add(this.active.name)
+    let screen = document.getElementsByClassName('screen')[0]
+    screen.insertBefore(this.active.node, screen.firstElementChild)
+    this.addBottomRightPoint()
+    // this.active.node.style.boxSizing = 'border-box'
+    this.active.node.style.position = 'absolute'
+    this.active.node.style.width = "100px"
+    this.active.node.style.height = "100px"
+    this.active.node.style.border = "1px solid black"
+    //not necessary
+  }
+  //
   //--------------------------------------------
   // edit
   //boder radius
@@ -27,24 +45,24 @@ export class AppComponent {
   myInput() {
     this.active.node.style.backgroundColor = this.colour
   }
+  //paddding,  margin
   //--------------------------------------
   // typing
-  //make this selection  work
-  //is selction working? what is selected and how
   littleFormSelection = 'Times New Roman'
-  littleFormWindow = 'Sans Serif'
-  //make this selecion work
-  //what is selected and how
-  //hilight hover
+  selectedFontFamily(family: any) {
+    this.littleFormSelection = family
+  }
   littleFormFonts = ['Sans Serif', 'Montserrat', 'Arial Narrow', "Courier New"]
   //make counter work
-  //highlight hover
+  //highlight hover-fix broken
   counterWindow = ['5', '8', '10', '11', '12', '13', '14', '15', '16']
   //make color work
   color = 'orange'
   colours = []
   //----------------------------------------
 
+  //Edit extern
+  //
   // positioning - space between, space around, center hor, center vert, center 1-9
   //  parent display flex,space between,space around, justifyContent center, alignItems center
   // addins - googl maps with locactions and comments
@@ -85,6 +103,7 @@ export class AppComponent {
     //parntelement.insertBefore(newElement, numbersArray[4].children[2])
     //numbers.splice(2, 0, 'three');2 equals into position 3
     //hoverOver: get hoivered id, find id, insert object into its children, delete last position or do nothing if from menu
+    //compare top with clientY and left with clientX
     this.centiesX = e.clientX - +this.active.node?.style.left.split('px')[0]
     this.centiesY = e.clientY - +this.active.node?.style.top.split('px')[0]
   }
@@ -126,16 +145,7 @@ export class AppComponent {
     }
     //resolve all fixed positions
 
-    //place number in shadow dom
-    // getTravelRoute 000
-    // this.numbersArray[0][0][0] = this.active
-
-
-    //  this.numbersArray[0].name if(this.numbersArray[0][0])this.numbersArray[0][0]
-    //  if(this.numbersArray[0])
-    //loop complete numbersArray for matching className - brute force
-    //numbersArray[0].children[0] if undefined go back and down
-    //  if nothing go back and down etc.
+    //this.fixedResolve
   }
 
   direction = ""
@@ -169,19 +179,7 @@ export class AppComponent {
     this.active.node.style.top = '0px'
     this.active.node.style.width = '100%'
   }
-  initiateSquare() {
-    this.active.name = Math.random().toFixed(7)
-    this.active.node = document.getElementsByClassName(this.active.name)[0]
-    //numbers.splice(2, 0, 'three');2 equals into position 3
-    this.numbersArray[0].children.splice(2, 0, this.active)
-    //insert equally into DOM
-    this.addBottomRightPoint()
-    let screen = document.getElementsByClassName('screen')[0]
-    screen.insertBefore(this.active.node, screen.firstElementChild);
-    // this.active.node.style.boxSizing = 'border-box'
-    this.active.node.style.position = 'absolute'
-    //not necessary
-  }
+
 }
 
 

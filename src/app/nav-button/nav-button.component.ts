@@ -11,7 +11,6 @@ export class NavButtonComponent {
     @Input() isActive: any
 
 
-    @Input() activeButton = 'activeButton'
     @Output() newItemEvent = new EventEmitter<string>();
     selectedButton(button: string) {
         console.log('to emit', button)

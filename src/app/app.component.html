@@ -9,7 +9,7 @@
 </div>
 
 <div class="navExtension initForms" *ngIf="isActive === 'Forms'">
-  <div class="formSquare 0"></div>
+  <div (click)="addSquare()" class="formSquare"></div>
   <div class="formCircle"></div>
   <div class="formText">Text</div>
 </div>
@@ -25,11 +25,12 @@
 </div>
 <div class="navExtension" *ngIf="isActive === 'Typing'">
   <app-little-form
-    [littleFormWindow]="littleFormWindow"
+    (newItemEvent)="selectedFontFamily($event)"
     [littleFormSelection]="littleFormSelection"
     [littleFormFonts]="littleFormFonts"
   >
   </app-little-form>
+  <!-- what is the window,emit event, repair window -->
   <app-counter [counterFontsizes]="counterWindow"></app-counter>
 
   <div
