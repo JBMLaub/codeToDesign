@@ -31,6 +31,7 @@ export class AppComponent {
   // typing
   //make this selection  work
   //is selction working? what is selected and how
+  //seems to be bottom to top 
   littleFormSelection = 'Times New Roman'
   littleFormWindow = 'Sans Serif'
   //make this selecion work
@@ -54,6 +55,9 @@ export class AppComponent {
   //Dynamic - rightBottom, middleBottom, dotted border v2, highlight collction, measure sticks - what sticks,
   //  adjust to top, build groups, show vert and hor alignment of child
   //Numbers - place into children, remove from old position
+
+
+  //leave big working areas by starting branches
 
   //screen
   active: any = {
@@ -82,6 +86,7 @@ export class AppComponent {
     }
     //active item
     //numbersArray[4].children.push()
+    //more research
     //parntelement.insertBefore(newElement, numbersArray[4].children[2])
     //numbers.splice(2, 0, 'three');2 equals into position 3
     //hoverOver: get hoivered id, find id, insert object into its children, delete last position or do nothing if from menu
@@ -125,18 +130,107 @@ export class AppComponent {
       squareParent.insertBefore(newSquare, squareParent.firstElementChild)
     }
     //resolve all fixed positions
-
-    //place number in shadow dom
-    // getTravelRoute 000
-    // this.numbersArray[0][0][0] = this.active
-
-
-    //  this.numbersArray[0].name if(this.numbersArray[0][0])this.numbersArray[0][0]
-    //  if(this.numbersArray[0])
-    //loop complete numbersArray for matching className - brute force
-    //numbersArray[0].children[0] if undefined go back and down
-    //  if nothing go back and down etc.
   }
+
+  //  place number in shadow dom
+  //  getTravelRoute 000
+  //  this.numbersArray[0].children[0].children[0]
+  //  findNumberInDOM()
+  //  startCounter
+  //  let start = this.numbersArray
+  //  let back
+  //  first = false
+  //  digDeeper(name){
+  //              nA[0].children[0].children[0]
+  //              startCounter.push(0,0,0)
+  //    if(this.numbersArray && !first) {
+  //      start = start[0]
+  //      first = true
+  //     }
+  //    if(start.children[0]) {
+  //      start = start.children[0]
+  //      if(start.name === name ) return
+  //      this.digDeeper(name)
+  //    } else {
+  //    back = this.numbersArray[0].children[0].children
+  //      if(back[1]){
+  //        if(start.name === name) return
+  //       }
+  //    } 
+  //  }
+  //  this.numbersArray = [
+  //   this.active = {
+  //     name: undefined,
+  //     node: undefined,
+  //     style: undefined,
+  //     children: [
+  //       this.active = {
+  //         name: undefined,
+  //         node: undefined,
+  //         style: undefined,
+  //         children: [
+  //           this.active = {
+  //             name: undefined,
+  //             node: undefined,
+  //             style: undefined,
+  //             children: []
+  //           }
+  //         ]
+  //       },
+  //       this.active = {
+  //         name: undefined,
+  //         node: undefined,
+  //         style: undefined,
+  //         children: [
+  //           this.active = {
+  //             name: undefined,
+  //             node: undefined,
+  //             style: undefined,
+  //             children: []
+  //           }
+  //         ]
+  //       },
+  //       this.active = {
+  //         name: undefined,
+  //         node: undefined,
+  //         style: undefined,
+  //         children: [
+  //           this.active = {
+  //             name: undefined,
+  //             node: undefined,
+  //             style: undefined,
+  //             children: []
+  //           }
+  //         ]
+  //       },
+  //       this.active = {
+  //         name: undefined,
+  //         node: undefined,
+  //         style: undefined,
+  //         children: [
+  //           this.active = {
+  //             name: undefined,
+  //             node: undefined,
+  //             style: undefined,
+  //             children: []
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   },
+  //   this.active = {
+  //     name: undefined,
+  //     node: undefined,
+  //     style: undefined,
+  //     children: []
+  //   }
+  // ]
+  //  this.numbersArray[0].name if(this.numbersArray[0][0])this.numbersArray[0][0]
+  //  if(this.numbersArray[0])
+  //loop complete numbersArray for matching className - brute force
+  //numbersArray[0].children[0] if undefined go back and down
+  //  if nothing go back and down etc.
+  // }
 
   direction = ""
   oldy = 0
