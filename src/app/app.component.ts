@@ -19,6 +19,7 @@ export class AppComponent {
   //on mouse down move to0 screen and stay with negative psotion values
   addSquare() {
     //what does it mean though
+    //add negative values for flluent add into screen
     //numbers.splice(2, 0, 'three');2 equals into position 3
     //insert equally into DOM
     this.active.name = Math.random().toFixed(7)
@@ -27,12 +28,16 @@ export class AppComponent {
     let screen = document.getElementsByClassName('screen')[0]
     screen.insertBefore(this.active.node, screen.firstElementChild)
     this.addBottomRightPoint()
-    // this.active.node.style.boxSizing = 'border-box'
+    this.active.node.style.top = "-50px"
+    this.active.node.style.width = "20px"
     this.active.node.style.position = 'absolute'
     this.active.node.style.width = "100px"
     this.active.node.style.height = "100px"
     this.active.node.style.border = "1px solid black"
+    // this.active.node.style.boxSizing = 'border-box'
     //not necessary
+    //this.active.name = undefined
+
   }
   //
   //--------------------------------------------
@@ -45,7 +50,7 @@ export class AppComponent {
   myInput() {
     this.active.node.style.backgroundColor = this.colour
   }
-  //paddding,  margin
+  //paddding,  margin, border, width, height, color - and edit colour?
   //--------------------------------------
   // typing
   littleFormSelection = 'Times New Roman'
@@ -70,7 +75,7 @@ export class AppComponent {
 
   //Fixed - Menu, edit - resolve all positions, jump into screen
   //Dynamic - rightBottom, middleBottom, dotted border v2, highlight collction, measure sticks - what sticks,
-  //  adjust to top, build groups, show vert and hor alignment of child
+  //  adjust to top, build groups, show vert and hor alignment of child, grouping elemnts
   //Numbers - place into children, remove from old position
 
   //screen
@@ -92,8 +97,11 @@ export class AppComponent {
     this.mouseDown = 'isDown'
     //get active elment
     if (typeof (e.target.className) === 'number' && e.clientY > 120) {
+      //get placement and shadow it
       this.active.name = e.target.className
+      //findInDOM
       this.active.node = document.getElementsByClassName(e.target.className)[0]
+      //replace active with shadowActive
     } else {
       //not necessarily
       this.dynamic.name = e.target.className
@@ -136,13 +144,6 @@ export class AppComponent {
   mouseup(e: any) {
     //activate Form on first 
     this.mouseDown = 'isUp'
-    //this.active.name = undefined
-    const squareParent = document.getElementsByClassName('navExtension initForms')[0]
-    if (squareParent?.getElementsByClassName('formSquare') === undefined) {
-      const newSquare = document.createElement("div");
-      newSquare.classList.add(Math.random().toFixed(7))
-      squareParent.insertBefore(newSquare, squareParent.firstElementChild)
-    }
     //resolve all fixed positions
 
     //this.fixedResolve
