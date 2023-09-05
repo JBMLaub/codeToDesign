@@ -78,8 +78,7 @@ export class AppComponent {
     this.mouseDown = 'isDown'
     //get active elment
     if (typeof (e.target.className) === 'number' && e.clientY > 120) {
-      this.active.name = e.target.className
-      this.active.node = document.getElementsByClassName(e.target.className)[0]
+      this.findSibling(e.target.className)
     } else {
       //not necessarily
       this.dynamic.name = e.target.className
@@ -140,9 +139,9 @@ export class AppComponent {
   //  let start = this.numbersArray
   //  let back
   //  first = false
-  //  digDeeper(name){
   //              nA[0].children[0].children[0]
   //              startCounter.push(0,0,0)
+  //  digDeeper(name){
   //    if(this.numbersArray && !first) {
   //      start = start[0]
   //      first = true
@@ -152,12 +151,37 @@ export class AppComponent {
   //      if(start.name === name ) return
   //      this.digDeeper(name)
   //    } else {
-  //    back = this.numbersArray[0].children[0].children
+  //    back = this.numbersArray[0].children[0].children[0]
   //      if(back[1]){
   //        if(start.name === name) return
   //       }
-  //    } 
+  //    }
   //  }
+  // this.numbersArray[
+  //                      {
+  //                        children[
+  //                                    {
+  //                                      children[]
+  //                                    }
+  //                                ]
+  //                       }
+  //                      {
+  //                        children[]
+  //                      }
+  //                  ]
+  //
+  //
+  // numbersArray[0].children[0].children[0].children[0]
+  // numbersArray[0].children[1].children[0].children[0].children[0]
+  // numbersArray[0].children[1].children[1].children[0].children[0].children[0]
+  // numbersArray[0].children[2].children[0].children[0]
+  //    
+  //
+  // 0---0---0---0
+  //     1---0---0---0
+  //         1---0---0---0
+  //     2---0---0
+  // 
   //  this.numbersArray = [
   //   this.active = {
   //     name: undefined,
@@ -231,7 +255,10 @@ export class AppComponent {
   //numbersArray[0].children[0] if undefined go back and down
   //  if nothing go back and down etc.
   // }
-
+  findSibling(screenElementClass: any) {
+    this.active.name = screenElementClass
+    this.active.node = document.getElementsByClassName(screenElementClass)[0]
+  }
   direction = ""
   oldy = 0
   findScrollDirection(e: any) {
