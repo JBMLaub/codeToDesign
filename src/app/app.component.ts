@@ -78,7 +78,7 @@ export class AppComponent {
     this.mouseDown = 'isDown'
     //get active elment
     if (typeof (e.target.className) === 'number' && e.clientY > 120) {
-      this.findSibling(e.target.className)
+      this.findShadowSibling(e.target.className)
     } else {
       //not necessarily
       this.dynamic.name = e.target.className
@@ -87,8 +87,8 @@ export class AppComponent {
     //numbersArray[4].children.push()
     //more research
     //parntelement.insertBefore(newElement, numbersArray[4].children[2])
-    //numbers.splice(2, 0, 'three');2 equals into position 3
-    //hoverOver: get hoivered id, find id, insert object into its children, delete last position or do nothing if from menu
+    //numbers.splice(2, 0, 'three');at index2 0 elements added replaced with 'three' 
+    //hoverOver: get hoivered className, find className, insert object into its children, delete last position or do nothing if from menu
     this.centiesX = e.clientX - +this.active.node?.style.left.split('px')[0]
     this.centiesY = e.clientY - +this.active.node?.style.top.split('px')[0]
   }
@@ -131,20 +131,22 @@ export class AppComponent {
     //resolve all fixed positions
   }
 
-  //  place number in shadow dom
+  //  place number in shadowDOM
+  //  find number in shadowDOM
+  //  update style and position in shadowDOM
   //  getTravelRoute 000
   //  this.numbersArray[0].children[0].children[0]
   //  findNumberInDOM()
   //  startCounter
   //  let start = this.numbersArray
   //  let back
-  //  first = false
+  //  first = true
   //              nA[0].children[0].children[0]
   //              startCounter.push(0,0,0)
   //  digDeeper(name){
-  //    if(this.numbersArray && !first) {
+  //    if(this.numbersArray && first) {
   //      start = start[0]
-  //      first = true
+  //      first = false
   //     }
   //    if(start.children[0]) {
   //      start = start.children[0]
@@ -170,92 +172,92 @@ export class AppComponent {
   //                      }
   //                  ]
   //
+  // getShadowlement
+  //let numbers
+  // numbersArray[0].children[0].children[0].children[0]---undefined
+  // numbers = numbersArray[0].children[0].children[0].children[0]
+  //  if(numbers.name === className){
+  //    this.active.name = className
+  //    this.active.node = document.getElementsByClassName(className)[0]
+  //  }
+  // numbersArray[0].children[1].children[0].children[0].children[0]---undefined
+  // new line
+  // numbersArray[0].children[1].children[1].children[0].children[0].children[0]---undefined
+  // new line
+  // numbersArray[0].children[2].children[0].children[0]---undefined
   //
-  // numbersArray[0].children[0].children[0].children[0]
-  // numbersArray[0].children[1].children[0].children[0].children[0]
-  // numbersArray[0].children[1].children[1].children[0].children[0].children[0]
-  // numbersArray[0].children[2].children[0].children[0]
-  //    
   //
-  // 0---0---0---0
-  //     1---0---0---0
-  //         1---0---0---0
-  //     2---0---0
-  // 
-  //  this.numbersArray = [
-  //   this.active = {
-  //     name: undefined,
-  //     node: undefined,
-  //     style: undefined,
-  //     children: [
-  //       this.active = {
-  //         name: undefined,
-  //         node: undefined,
-  //         style: undefined,
-  //         children: [
-  //           this.active = {
-  //             name: undefined,
-  //             node: undefined,
-  //             style: undefined,
-  //             children: []
-  //           }
-  //         ]
-  //       },
-  //       this.active = {
-  //         name: undefined,
-  //         node: undefined,
-  //         style: undefined,
-  //         children: [
-  //           this.active = {
-  //             name: undefined,
-  //             node: undefined,
-  //             style: undefined,
-  //             children: []
-  //           }
-  //         ]
-  //       },
-  //       this.active = {
-  //         name: undefined,
-  //         node: undefined,
-  //         style: undefined,
-  //         children: [
-  //           this.active = {
-  //             name: undefined,
-  //             node: undefined,
-  //             style: undefined,
-  //             children: []
-  //           }
-  //         ]
-  //       },
-  //       this.active = {
-  //         name: undefined,
-  //         node: undefined,
-  //         style: undefined,
-  //         children: [
-  //           this.active = {
-  //             name: undefined,
-  //             node: undefined,
-  //             style: undefined,
-  //             children: []
-  //           }
-  //         ]
-  //       }
-  //     ]
-  //   },
-  //   this.active = {
-  //     name: undefined,
-  //     node: undefined,
-  //     style: undefined,
-  //     children: []
+  // 0---0---0---0---undefined
+  // 0---0---0---1---undefined
+  // 0---0---1---undefined
+  // 0---1---0---0---0---undefined
+  // 0---1---1---undefined
+  // 0---2---0---0---undefined
+  // 0---2---0---1---undefined
+  // 0---2---1---undefined
+  // 0---1---0---undefined
+  //
+  // activeObject, hoveredObject, activeShadowObject, hoveredShadowObject, shadowDOM, realDOM
+  //  
+  //  let activeShadowObject
+  //  let first = true
+  //  recurse(name)
+  //   if(first === true){
+  //      activeShadowObject = shadowDOM[0].children[1]
+  //      if(activeShadowObject.name === name) {
+  //        reposition activeObject and activeShadowObject
+  //        edit activeObject and activeShadowObject
+  //      }
+  //      first = false
   //   }
-  // ]
+  //   if(activeShadowObject === name){
+  //      adapt activeShadowObject to activeObject 
+  //   }else if(activeShadowObject){
+  //      activeShadowObject = activeShadowObject.children[0]
+  //      this.recurse()
+  //   }
+  //   if(activeShadowObject === undefined){
+  //      return false
+  //   }
+  //  
+  //
+  //
+  //
+  //  0000undefined
+  //
+  //  draw lines
+  //  line
+  //  if undefined - next line
+  //
+  //
+  //
+  //  this.shadowDOM =[
+  //   { name: undefined,
+  //     node: undefined,
+  //     style: undefined,
+  //     children:
+  //      [
+  //      { name: undefined,
+  //        node: undefined,
+  //        style: undefined, 
+  //        children:[{},{},{}]
+  //      }
+  //      ]
+  //     },{
+  //     name: undefined,
+  //     node: undefined,
+  //     style: undefined,
+  //     children:[{},{},{}]
+  //   }
+  //
+
   //  this.numbersArray[0].name if(this.numbersArray[0][0])this.numbersArray[0][0]
   //  if(this.numbersArray[0])
   //loop complete numbersArray for matching className - brute force
   //numbersArray[0].children[0] if undefined go back and down
   //  if nothing go back and down etc.
   // }
-  findSibling(screenElementClass: any) {
+  findShadowSibling(screenElementClass: any): void {
     this.active.name = screenElementClass
     this.active.node = document.getElementsByClassName(screenElementClass)[0]
   }
