@@ -52,7 +52,7 @@ export class AppComponent {
   // user - name, e-mail, password
 
   //Fixed - Menu, edit - resolve all positions, jump into screen
-  //Dynamic - rightBottom, middleBottom, dotted border v2, highlight collction, measure sticks - what sticks,
+  //Dynamic - rightBottom, middleBottom, dotted border v2, highlight collction, measure sticks - what sticks, big ones and small ones
   //  adjust to top, build groups, show vert and hor alignment of child
   //Numbers - place into children, remove from old position
 
@@ -66,7 +66,7 @@ export class AppComponent {
     style: undefined,
     children: []
   }
-  numbersArray: any = []
+  shadowDOM: any = []
   dynamic: any = {
     name: undefined
   }
@@ -76,7 +76,7 @@ export class AppComponent {
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     this.mouseDown = 'isDown'
-    //get active elment
+    //bring item to page
     if (typeof (e.target.className) === 'number' && e.clientY > 120) {
       this.findShadowSibling(e.target.className)
     } else {
@@ -84,9 +84,9 @@ export class AppComponent {
       this.dynamic.name = e.target.className
     }
     //active item
-    //numbersArray[4].children.push()
+    //shadowDOM[4].children.push()
     //more research
-    //parntelement.insertBefore(newElement, numbersArray[4].children[2])
+    //parntelement.insertBefore(newElement, shadowDOM[4].children[2])
     //numbers.splice(2, 0, 'three');at index2 0 elements added replaced with 'three' 
     //hoverOver: get hoivered className, find className, insert object into its children, delete last position or do nothing if from menu
     this.centiesX = e.clientX - +this.active.node?.style.left.split('px')[0]
@@ -123,7 +123,9 @@ export class AppComponent {
     this.mouseDown = 'isUp'
     //this.active.name = undefined
     const squareParent = document.getElementsByClassName('navExtension initForms')[0]
-    if (squareParent?.getElementsByClassName('formSquare') === undefined) {
+    //squareParent.childreen.length < 3
+    //on up give number className
+    if (squareParent?.getElementsByClassName('square') === undefined) {
       const newSquare = document.createElement("div");
       newSquare.classList.add(Math.random().toFixed(7))
       squareParent.insertBefore(newSquare, squareParent.firstElementChild)
@@ -131,20 +133,27 @@ export class AppComponent {
     //resolve all fixed positions
   }
 
+  //  hoveredObject
+  //    remove from array - old parent - mouse down - 
+  //      at positon 0 remove 1 - splice(0,1)
+  //    mouse up, insertBefore
+  //      parent- e.target.className --> get node
+  //      let node = document.getElementsByClassName('className')[0]
+  //
   //  place number in shadowDOM
   //  find number in shadowDOM
   //  update style and position in shadowDOM
   //  getTravelRoute 000
-  //  this.numbersArray[0].children[0].children[0]
+  //  this.shadowDOM[0].children[0].children[0]
   //  findNumberInDOM()
   //  startCounter
-  //  let start = this.numbersArray
+  //  let start = this.shadowDOM
   //  let back
-  //  first = true
-  //              nA[0].children[0].children[0]
-  //              startCounter.push(0,0,0)
+  //  let first = true
+  //  let backup = this.shadowDOM
+  //              sD[0].children[0].children[0]
   //  digDeeper(name){
-  //    if(this.numbersArray && first) {
+  //    if(this.shadowDOM && first) {
   //      start = start[0]
   //      first = false
   //     }
@@ -153,83 +162,97 @@ export class AppComponent {
   //      if(start.name === name ) return
   //      this.digDeeper(name)
   //    } else {
-  //    back = this.numbersArray[0].children[0].children[0]
+  //    back = this.shadowDOM[0].children[0].children[0]
   //      if(back[1]){
   //        if(start.name === name) return
   //       }
   //    }
   //  }
-  // this.numbersArray[
-  //                      {
-  //                        children[
-  //                                    {
-  //                                      children[]
-  //                                    }
-  //                                ]
-  //                       }
-  //                      {
-  //                        children[]
-  //                      }
-  //                  ]
   //
-  // getShadowlement
-  //let numbers
-  // numbersArray[0].children[0].children[0].children[0]---undefined
-  // numbers = numbersArray[0].children[0].children[0].children[0]
+  // activeObject, hoveredObject, realDOM, activeShadowObject, hoveredShadowObject, shadowDOM
+  //
+  //
+  // let numbers
+  // shadowDOM[0].children[0].children[0].children[0]---undefined
+  // numbers = shadowDOM[0].children[0].children[0].children[0]
   //  if(numbers.name === className){
   //    this.active.name = className
   //    this.active.node = document.getElementsByClassName(className)[0]
   //  }
-  // numbersArray[0].children[1].children[0].children[0].children[0]---undefined
+  // shadowDOM[0].children[1].children[0].children[0].children[0]---undefined
   // new line
-  // numbersArray[0].children[1].children[1].children[0].children[0].children[0]---undefined
+  // shadowDOM[0].children[1].children[1].children[0].children[0].children[0]---undefined7
   // new line
-  // numbersArray[0].children[2].children[0].children[0]---undefined
+  // shadowDOM[0].children[2].children[0].children[0]---undefined
   //
   //
-  // 0---0---0---0---undefined
-  // 0---0---0---1---undefined
-  // 0---0---1---undefined
-  // 0---1---0---0---0---undefined
-  // 0---1---1---undefined
-  // 0---2---0---0---undefined
-  // 0---2---0---1---undefined
-  // 0---2---1---undefined
-  // 0---1---0---undefined
+  // What is it for?
+  //  building realDOM
+  //  thats it?
   //
-  // activeObject, hoveredObject, activeShadowObject, hoveredShadowObject, shadowDOM, realDOM
-  //  
+  //  Routes = [
+  //(x) 0   1   2   3   4   5
+  // 0|[0---0---0---0---undefined]
+  // 1|[0---0---0---1---undefined]
+  // 2|[0---0---1---undefined]
+  // 3|[0---1---0---0---0---undefined]
+  // 4|[0---1---1---undefined]
+  // 5|[0---2---0---0---undefined]
+  // 6|[0---2---0---1---undefined]
+  // 7|[0---2---1---undefined]
+  //(y) ]
+  //
+  //
+  //  routes[x,y]
+  //
+  //
+  //  for(let y = 0;y < routes.length;y++){
+  //    for(let x = 0;x < routes[y].length;x++){
+  //      routes[y][x]
+  //      recurse(name, y, x)
+  //    }
+  //  }
+  //
+  //  moving with children - puh
+  //  let activeObject
+  //  let shadowDOM
   //  let activeShadowObject
   //  let first = true
-  //  recurse(name)
+  //  recurse(name, x, y)
   //   if(first === true){
-  //      activeShadowObject = shadowDOM[0].children[1]
+  //      activeShadowObject = shadowDOM[0]
   //      if(activeShadowObject.name === name) {
-  //        reposition activeObject and activeShadowObject
-  //        edit activeObject and activeShadowObject
+  //        reposition activeShadowObject --> get route of activeObject
+  //        position activeShadowObject accordingly
+  //        get node
+  //        check for all styles should not come to it - (test for  undefined or === '')
+  //        compare children
   //      }
   //      first = false
   //   }
-  //   if(activeShadowObject === name){
-  //      adapt activeShadowObject to activeObject 
+  //   if(activeShadowObject.name === name){
+  //      adapt activeShadowObject to activeObject
+  //        get node
+  //        check for all styles - collect if === '' (alt test for null, undefined)
+  //        compare children
+  //      return route
   //   }else if(activeShadowObject){
-  //      activeShadowObject = activeShadowObject.children[0]
-  //      this.recurse()
+  //      activeShadowObject = activeShadowObject.children[i]
   //   }
   //   if(activeShadowObject === undefined){
+  //      first = true
   //      return false
   //   }
-  //  
   //
-  //
-  //
-  //  0000undefined
-  //
-  //  draw lines
-  //  line
-  //  if undefined - next line
-  //
-  //
+  //  //  check for all styles(){}
+  //  node.style => {0: 'min-width', 1: 'top', 2: 'position', 3: 'text-align', 4: 'display', 5: 'left',
+  //  let keysArray = Object.keys(node.style) => ['0', '1', '2', '3', '4','accentColor']
+  //  keysArray[0] => '0'
+  //  let i = 0
+  //  while(typeof(+keysArray[i]) === 'number'){
+  //    node.style[node.style[+keysArray[i]]] = node.style[node.style[i]]
+  //    i++
+  //  }
   //
   //  this.shadowDOM =[
   //   { name: undefined,
@@ -249,14 +272,13 @@ export class AppComponent {
   //     style: undefined,
   //     children:[{},{},{}]
   //   }
+  //  ]
   //
-
-  //  this.numbersArray[0].name if(this.numbersArray[0][0])this.numbersArray[0][0]
-  //  if(this.numbersArray[0])
-  //loop complete numbersArray for matching className - brute force
-  //numbersArray[0].children[0] if undefined go back and down
-  //  if nothing go back and down etc.
-  // }
+  //  loop complete shadowDOM for matching className - brute force
+  //  build map first
+  //  shadowDOM[0].children[0] if undefined go to next line
+  //  build routes
+  //  }
   findShadowSibling(screenElementClass: any): void {
     this.active.name = screenElementClass
     this.active.node = document.getElementsByClassName(screenElementClass)[0]
@@ -296,7 +318,7 @@ export class AppComponent {
     this.active.name = Math.random().toFixed(7)
     this.active.node = document.getElementsByClassName(this.active.name)[0]
     //numbers.splice(2, 0, 'three');2 equals into position 3
-    this.numbersArray[0].children.splice(2, 0, this.active)
+    this.shadowDOM[0].children.splice(2, 0, this.active)
     //insert equally into DOM
     this.addBottomRightPoint()
     let screen = document.getElementsByClassName('screen')[0]
