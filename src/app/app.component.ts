@@ -53,6 +53,7 @@ export class AppComponent {
   //paddding,  margin, border, width, height, color - and edit colour?
   //--------------------------------------
   // typing
+  //seems to be bottom to top 
   littleFormSelection = 'Times New Roman'
   selectedFontFamily(family: any) {
     this.littleFormSelection = family
@@ -75,8 +76,11 @@ export class AppComponent {
 
   //Fixed - Menu, edit - resolve all positions, jump into screen
   //Dynamic - rightBottom, middleBottom, dotted border v2, highlight collction, measure sticks - what sticks,
-  //  adjust to top, build groups, show vert and hor alignment of child, grouping elemnts
+  //  adjust to top, build groups, show vert and hor alignment of child
   //Numbers - place into children, remove from old position
+
+
+  //leave big working areas by starting branches
 
   //screen
   active: any = {
@@ -85,7 +89,7 @@ export class AppComponent {
     style: undefined,
     children: []
   }
-  numbersArray: any = []
+  shadowDOM: any = []
   dynamic: any = {
     name: undefined
   }
@@ -95,22 +99,20 @@ export class AppComponent {
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     this.mouseDown = 'isDown'
-    //get active elment
+    //bring item to page
     if (typeof (e.target.className) === 'number' && e.clientY > 120) {
-      //get placement and shadow it
       this.active.name = e.target.className
-      //findInDOM
       this.active.node = document.getElementsByClassName(e.target.className)[0]
-      //replace active with shadowActive
     } else {
       //not necessarily
       this.dynamic.name = e.target.className
     }
     //active item
-    //numbersArray[4].children.push()
-    //parntelement.insertBefore(newElement, numbersArray[4].children[2])
-    //numbers.splice(2, 0, 'three');2 equals into position 3
-    //hoverOver: get hoivered id, find id, insert object into its children, delete last position or do nothing if from menu
+    //shadowDOM[4].children.push()
+    //more research
+    //parntelement.insertBefore(newElement, shadowDOM[4].children[2])
+    //numbers.splice(2, 0, 'three');at index2 0 elements added replaced with 'three' 
+    //hoverOver: get hoivered className, find className, insert object into its children, delete last position or do nothing if from menu
     //compare top with clientY and left with clientX
     this.centiesX = e.clientX - +this.active.node?.style.left.split('px')[0]
     this.centiesY = e.clientY - +this.active.node?.style.top.split('px')[0]
@@ -144,9 +146,27 @@ export class AppComponent {
   mouseup(e: any) {
     //activate Form on first 
     this.mouseDown = 'isUp'
+    //this.active.name = undefined
+    const squareParent = document.getElementsByClassName('navExtension initForms')[0]
+    //squareParent.childreen.length < 3
+    //on up give number className
+    if (squareParent?.getElementsByClassName('square') === undefined) {
+      const newSquare = document.createElement("div");
+      newSquare.classList.add(Math.random().toFixed(7))
+      squareParent.insertBefore(newSquare, squareParent.firstElementChild)
+    }
     //resolve all fixed positions
 
-    //this.fixedResolve
+    //place number in shadow dom
+    // getTravelRoute 000
+    // this.numbersArray[0][0][0] = this.active
+
+
+    //  this.numbersArray[0].name if(this.numbersArray[0][0])this.numbersArray[0][0]
+    //  if(this.numbersArray[0])
+    //loop complete numbersArray for matching className - brute force
+    //numbersArray[0].children[0] if undefined go back and down
+    //  if nothing go back and down etc.
   }
 
   direction = ""
@@ -180,7 +200,19 @@ export class AppComponent {
     this.active.node.style.top = '0px'
     this.active.node.style.width = '100%'
   }
-
+  initiateSquare() {
+    this.active.name = Math.random().toFixed(7)
+    this.active.node = document.getElementsByClassName(this.active.name)[0]
+    //numbers.splice(2, 0, 'three');2 equals into position 3
+    this.shadowDOM[0].children.splice(2, 0, this.active)
+    //insert equally into DOM
+    this.addBottomRightPoint()
+    let screen = document.getElementsByClassName('screen')[0]
+    screen.insertBefore(this.active.node, screen.firstElementChild);
+    // this.active.node.style.boxSizing = 'border-box'
+    this.active.node.style.position = 'absolute'
+    //not necessary
+  }
 }
 
 

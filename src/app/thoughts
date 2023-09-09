@@ -1,0 +1,29 @@
+
+  // 0---0---0---0---undefined
+  // 0---0---0---1---undefined
+  // 0---0---1---undefined
+  // 0---1---0---0---0---undefined
+  // 0---1---1---undefined
+  // 0---2---0---0---undefined
+  // 0---2---0---1---undefined
+  // 0---2---1---undefined
+  // 0---1---0---undefined
+  //
+  //  }
+  // numbersArray[0].children[1].children[0].children[0].children[0]---undefined
+  // new line
+  // numbersArray[0].children[1].children[1].children[0].children[0].children[0]---undefined
+  // new line 
+  // numbersArray[0].children[2].children[0].children[0]---undefined
+  //
+  let array = 0000u0001u001u01000u011u0200u0201u021u010u
+for(let i = 0;i<array.length;i++){
+    const element = array[i]
+    if(array[i].children[0] != name ){
+        let currentPosition = array[i].children[0]
+    }
+    if(element === u){
+    first = true
+    } 
+}
+  loop shadowArray
