@@ -22,18 +22,7 @@ export class AppComponent {
     //add negative values for flluent add into screen
     //numbers.splice(2, 0, 'three');2 equals into position 3
     //insert equally into DOM
-    this.active.name = Math.random().toFixed(7)
-    this.active.node = document.createElement("div");
-    this.active.node.classList.add(this.active.name)
-    let screen = document.getElementsByClassName('screen')[0]
-    screen.insertBefore(this.active.node, screen.firstElementChild)
-    this.addBottomRightPoint()
-    this.active.node.style.top = "-50px"
-    this.active.node.style.width = "20px"
-    this.active.node.style.position = 'absolute'
-    this.active.node.style.width = "100px"
-    this.active.node.style.height = "100px"
-    this.active.node.style.border = "1px solid black"
+
     // this.active.node.style.boxSizing = 'border-box'
     //not necessary
     //this.active.name = undefined
@@ -202,16 +191,22 @@ export class AppComponent {
   }
   initiateSquare() {
     this.active.name = Math.random().toFixed(7)
-    this.active.node = document.getElementsByClassName(this.active.name)[0]
-    //numbers.splice(2, 0, 'three');2 equals into position 3
-    this.shadowDOM[0].children.splice(2, 0, this.active)
-    //insert equally into DOM
-    this.addBottomRightPoint()
+    const square = document.createElement("div");
+    square.classList.add(this.active.name)
+    console.log(square)
     let screen = document.getElementsByClassName('screen')[0]
-    screen.insertBefore(this.active.node, screen.firstElementChild);
-    // this.active.node.style.boxSizing = 'border-box'
-    this.active.node.style.position = 'absolute'
+    screen.insertBefore(square, screen.firstElementChild);
+    this.active.node = document.getElementsByClassName(this.active.name)[0]
+    //insert equally into DOM
     //not necessary
+    this.addBottomRightPoint()
+
+    this.active.node.style.width = "50px"
+    this.active.node.style.height = "50px"
+    this.active.node.style.position = 'absolute'
+    this.active.node.style.border = '1px solid black'
+    this.active.node.style.boxSizing = 'border-box'
+    //place object diectly into shadowDOM
   }
 }
 
