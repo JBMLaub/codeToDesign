@@ -135,10 +135,6 @@ export class AppComponent {
   mouseup(e: any) {
     //activate Form on first 
     this.mouseDown = 'isUp'
-    //this.active.name = undefined
-    const squareParent = document.getElementsByClassName('navExtension initForms')[0]
-    //squareParent.childreen.length < 3
-    //on up give number className
     //resolve all fixed positions
 
     //place number in shadow dom
