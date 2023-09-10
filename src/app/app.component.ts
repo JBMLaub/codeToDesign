@@ -16,18 +16,6 @@ export class AppComponent {
   }
   //-------------------------------------------
   //forms
-  //on mouse down move to0 screen and stay with negative psotion values
-  addSquare() {
-    //what does it mean though
-    //add negative values for flluent add into screen
-    //numbers.splice(2, 0, 'three');2 equals into position 3
-    //insert equally into DOM
-
-    // this.active.node.style.boxSizing = 'border-box'
-    //not necessary
-    //this.active.name = undefined
-
-  }
   //
   //--------------------------------------------
   // edit
@@ -96,13 +84,7 @@ export class AppComponent {
       //not necessarily
       this.dynamic.name = e.target.className
     }
-    //active item
-    //shadowDOM[4].children.push()
-    //more research
-    //parntelement.insertBefore(newElement, shadowDOM[4].children[2])
-    //numbers.splice(2, 0, 'three');at index2 0 elements added replaced with 'three' 
-    //hoverOver: get hoivered className, find className, insert object into its children, delete last position or do nothing if from menu
-    //compare top with clientY and left with clientX
+
     this.centiesX = e.clientX - +this.active.node?.style.left.split('px')[0]
     this.centiesY = e.clientY - +this.active.node?.style.top.split('px')[0]
   }
@@ -137,11 +119,112 @@ export class AppComponent {
     this.mouseDown = 'isUp'
     //resolve all fixed positions
 
+
+
     //place number in shadow dom
     // getTravelRoute 000
     // this.numbersArray[0][0][0] = this.active
 
   }
+
+  //
+  // activeObject, hoveredObject, realDOM, activeShadowObject, hoveredShadowObject, shadowDOM
+  //
+  //
+  // let numbers
+  // shadowDOM[0].children[0].children[0].children[0]---undefined
+  // numbers = shadowDOM[0].children[0].children[0].children[0]
+  //  if(numbers.name === className){
+  //    this.active.name = className
+  //    this.active.node = document.getElementsByClassName(className)[0]
+  //  }
+  // shadowDOM[0].children[1].children[0].children[0].children[0]---undefined
+  // new line
+  // shadowDOM[0].children[1].children[1].children[0].children[0].children[0]---undefined7
+  // new line
+  // shadowDOM[0].children[2].children[0].children[0]---undefined
+  //
+  //
+  // What is it for?
+  //  building realDOM
+  //  thats it?
+  //
+  //  Routes = [
+  //(x) 0   1   2   3   4   5
+  // 0|[0---0---0---0---undefined]
+  // 1|[0---0---0---1---undefined]
+  // 2|[0---0---1---undefined]
+  // 3|[0---1---0---0---0---undefined]
+  // 4|[0---1---1---undefined]
+  // 5|[0---2---0---0---undefined]
+  // 6|[0---2---0---1---undefined]
+  // 7|[0---2---1---undefined]
+  //(y) ]
+  //
+  //
+  //  routes[x,y]
+  //
+  //
+  //  for(let y = 0;y < routes.length;y++){
+  //    for(let x = 0;x < routes[y].length;x++){
+  //      routes[y][x]
+  //      recurse(name, y, x)
+  //    }
+  //  }
+  //
+  //  moving with children - puh
+  //  let activeObject
+  //  let shadowDOM
+  //  let activeShadowObject
+  //  let first = true
+  //  recurse(name, x, y)
+  //   if(first === true){
+  //      activeShadowObject = shadowDOM[0]
+  //      if(activeShadowObject.name === name) {
+  //        reposition activeShadowObject --> get route of activeObject
+  //        position activeShadowObject accordingly
+  //        get node
+  //        check for all styles should not come to it - (test for  undefined or === '')
+  //        compare children
+  //      }
+  //      first = false
+  //   }
+  //   if(activeShadowObject.name === name){
+  //      adapt activeShadowObject to activeObject
+  //        get node
+  //        check for all styles - collect if === '' (alt test for null, undefined)
+  //        compare children
+  //      return route
+  //   }else if(activeShadowObject){
+  //      activeShadowObject = activeShadowObject.children[i]
+  //   }
+  //   if(activeShadowObject === undefined){
+  //      first = true
+  //      return false
+  //   }
+  //
+  //  //  check for all styles(){}
+  //  node.style => {0: 'min-width', 1: 'top', 2: 'position', 3: 'text-align', 4: 'display', 5: 'left',
+  //  let keysArray = Object.keys(node.style) => ['0', '1', '2', '3', '4','accentColor']
+  //  keysArray[0] => '0'
+  //  let i = 0
+  //  while(typeof(+keysArray[i]) === 'number'){
+  //    node.style[node.style[+keysArray[i]]] = node.style[node.style[i]]
+  //    i++
+  //  }
+  //
+  //  this.shadowDOM =[
+  //   { name: undefined,
+  //     style: undefined,
+  //     children:[{},{},{}]
+  //   }
+  //  ]
+  //
+  //  loop complete shadowDOM for matching className - brute force
+  //  build map first
+  //  shadowDOM[0].children[0] if undefined go to next line
+  //  build routes
+  //  }
 
   direction = ""
   oldy = 0
@@ -191,6 +274,7 @@ export class AppComponent {
     this.active.node.style.boxSizing = 'border-box'
     //place object diectly into shadowDOM
   }
+
 }
 
 
