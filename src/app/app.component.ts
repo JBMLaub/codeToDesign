@@ -139,23 +139,12 @@ export class AppComponent {
     const squareParent = document.getElementsByClassName('navExtension initForms')[0]
     //squareParent.childreen.length < 3
     //on up give number className
-    if (squareParent?.getElementsByClassName('square') === undefined) {
-      const newSquare = document.createElement("div");
-      newSquare.classList.add(Math.random().toFixed(7))
-      squareParent.insertBefore(newSquare, squareParent.firstElementChild)
-    }
     //resolve all fixed positions
 
     //place number in shadow dom
     // getTravelRoute 000
     // this.numbersArray[0][0][0] = this.active
 
-
-    //  this.numbersArray[0].name if(this.numbersArray[0][0])this.numbersArray[0][0]
-    //  if(this.numbersArray[0])
-    //loop complete numbersArray for matching className - brute force
-    //numbersArray[0].children[0] if undefined go back and down
-    //  if nothing go back and down etc.
   }
 
   direction = ""
@@ -193,12 +182,10 @@ export class AppComponent {
     this.active.name = Math.random().toFixed(7)
     const square = document.createElement("div");
     square.classList.add(this.active.name)
-    console.log(square)
     let screen = document.getElementsByClassName('screen')[0]
     screen.insertBefore(square, screen.firstElementChild);
     this.active.node = document.getElementsByClassName(this.active.name)[0]
-    //insert equally into DOM
-    //not necessary
+    //insert equally into DOM?
     this.addBottomRightPoint()
 
     this.active.node.style.width = "50px"
