@@ -47,7 +47,7 @@ export class AppComponent {
   //Edit extern
   //
   // positioning - space between, space around, center hor, center vert, center 1-9
-  //  parent display flex,space between,space around, justifyContent center, alignItems center
+  //  parent display flex,space between,space around, justifyContent center, alignObjects center
   // addins - googl maps with locactions and comments
   // user - name, e-mail, password
 
@@ -59,6 +59,10 @@ export class AppComponent {
 
   //leave big working areas by starting branches
 
+  //stiking back
+  //moving down, width=100%,if last position was - moving downwards and being 100%
+
+  //understand and activate dynamic --
   //screen
   active: any = {
     name: undefined,
@@ -76,13 +80,16 @@ export class AppComponent {
   @HostListener('mousedown', ['$event'])
   mousedown(e: any) {
     this.mouseDown = 'isDown'
-    //bring item to page
-    if (typeof (e.target.className) === 'number' && e.clientY > 120) {
-      this.active.name = e.target.className
+    //cursor looses track [x] 
+    //NaN passes, but shouldn't [add cond that inoput must equal itself, blocking NaN][x]
+    if (typeof (+e.target.className) === 'number' && e.clientY > 100 && +this.active.name === +this.active.name) {
+      this.active.name = +e.target.className
       this.active.node = document.getElementsByClassName(e.target.className)[0]
-    } else {
-      //not necessarily
+    }
+    else if (+this.active.name === +this.active.name) {
+      //if taregt is NaN is ok
       this.dynamic.name = e.target.className
+      console.log('this.dynamic.name', e.target.className)
     }
 
     this.centiesX = e.clientX - +this.active.node?.style.left.split('px')[0]
@@ -91,26 +98,34 @@ export class AppComponent {
   @HostListener('mousemove', ['$event'])
   mousemove(e: any) {
     if (this.mouseDown === 'isDown') {
-      if (typeof (this.active.name) === 'number') {
-        //tell Listener what is dragstart currently
+      if (+this.active.node.style.top.split('px')[0] < 0) {
+        this.active.node.style.top = '0px'
+      }
+      //is it number? --
+      if (typeof (+this.active.name) === 'number' && '' + +this.active.name + '' != 'NaN') {
         this.active.node.style.top = e.clientY - this.centiesY + 'px'
         this.active.node.style.left = e.clientX - this.centiesX + 'px'
-        if (+this.active.node.style.top.split('px')[0] < 0) {
-          this.active.node.style.top = '0px'
-        }
       }
+      //rightBottom doesn'twork []
       else if (this.dynamic.name === 'formSquare__handler--bottomRight') {
         this.active.node.style.height = e.clientY - +this.active.node.style.top.split('px')[0] - 100 + 'px'
         this.active.node.style.width = e.clientX - +this.active.node.style.left.split('px')[0] + 'px'
+        console.log('rightBottomPoint')
       }
-      else if (this.dynamic.name === 'formSquare__handler--middleBottom') {
-        this.active.node.style.height = e.clientY - 100 + 'px'
-      }
-      if (this.active.node.style.top.split('px')[0] < 20 && this.findScrollDirection(e) === 'top') {
-        this.removeBottomRightPoint()
-        this.addMiddleBottomPoint()
-        this.stickToTop()
-      }
+      // else if (this.dynamic.name === 'formSquare__handler--middleBottom') {
+      //   this.active.node.style.height = e.clientY - 100 + 'px'
+      // }
+      // if (this.active.node.style.top.split('px')[0] < 20 && this.findScrollDirection(e) === 'top') {
+      //   this.removeBottomRightPoint()
+      //   this.addMiddleBottomPoint()
+      //   this.stickToTop()
+      // }
+      // if (this.active.node.style.top.split('px')[0] < 20 && this.findScrollDirection(e) === 'bottom') {
+      //   console.log('scrollingdown from top')
+      //   this.removeMiddleBottomPoint()
+      //   this.addBottomRightPoint()
+      //   this.unstickFromTop()
+      // }
     }
   }
   @HostListener('mouseup', ['$event'])
@@ -121,30 +136,62 @@ export class AppComponent {
 
 
 
-    //place number in shadow dom
+    //place number in shadow dom+
+    // big thing
     // getTravelRoute 000
+    // get node of activeObject
+    // insertBefore -- hoveredObject
     // this.numbersArray[0][0][0] = this.active
 
   }
-
+  //
+  //
+  // ________________________________________
+  //|                                        |
+  //|    |-----|  |----|  |-----|  |----|    |
+  //|________________________________________|
+  //
+  //
+  //
+  //
+  //
+  //
+  //  grouping elements:
+  //    same parent
   //
   // activeObject, hoveredObject, realDOM, activeShadowObject, hoveredShadowObject, shadowDOM
   //
+  //  on mouseDown:
+  //    select activeObject
+  //  on mouseMoving:
+  //    hoveredObject var
+  //    hoveredObject --> always e.target.className when moving
+  //    connecting to shadowDOM? findHoveredShadowObject
+  //  on mouseUp:
+  //    activeObject --> wrong top and left values?
+  //    hoveredObject.insertBefore(this.activeObject, firstElementChild))
+  //  removing last position             
   //
-  // let numbers
-  // shadowDOM[0].children[0].children[0].children[0]---undefined
-  // numbers = shadowDOM[0].children[0].children[0].children[0]
-  //  if(numbers.name === className){
-  //    this.active.name = className
-  //    this.active.node = document.getElementsByClassName(className)[0]
-  //  }
-  // shadowDOM[0].children[1].children[0].children[0].children[0]---undefined
-  // new line
-  // shadowDOM[0].children[1].children[1].children[0].children[0].children[0]---undefined7
-  // new line
-  // shadowDOM[0].children[2].children[0].children[0]---undefined
+  //  changing positionwhile inserting
+  //  building shadowDOM and routes together
   //
-  //
+  //  on mouseDown:
+  //    route = shadowDOM[0].children[0].children[0].children[0]---undefined
+  //    activeShadowObject = shadowDOM[0].children[0].children[0].children[0]
+  //    -->if(activeShadowObject.name === className){<-- get it
+  //      this.active.name = className
+  //      this.hoveredObject-->hoveredObject.node = document.getElementsByClassName(className)[0]
+  //    }
+  //  0            1            2           3         4
+  //0 shadowDOM[0].children[0].children[0].children[0]undefined
+  //1 shadowDOM[0].children[0].children[0].children[1]undefined
+  //2 shadowDOM[0].children[0].children[1]undefined
+  //3 shadowDOM[0].children[1].children[0].children[0].children[0]undefined
+  //4 shadowDOM[0].children[1].children[1]undefined
+  //5 shadowDOM[0].children[2].children[0].children[0]undefined
+  //6 shadowDOM[0].children[2].children[0].children[1]undefined
+  //7 shadowDOM[0].children[2].children[1]undefined
+  // should be enough for a plan
   // What is it for?
   //  building realDOM
   //  thats it?
@@ -162,7 +209,13 @@ export class AppComponent {
   //(y) ]
   //
   //
-  //  routes[x,y]
+  //  start with x=0 and y =0
+  //  cont x =1 and y= 0
+  //  x-2, y-0, x3 and y0, x4 and y 0
+  // --> check if is not undefined
+  //
+  //
+  //
   //
   //
   //  for(let y = 0;y < routes.length;y++){
@@ -216,6 +269,18 @@ export class AppComponent {
   //  this.shadowDOM =[
   //   { name: undefined,
   //     style: undefined,
+  //     children:[
+  //      {
+  //      name: undefined,
+  //      style: undefined,
+  //      children:[{},{},{}]
+  //      }
+  //      ,{}
+  //      ,{}]
+  //   },
+  //   {
+  //     name: undefined,
+  //     style: undefined,
   //     children:[{},{},{}]
   //   }
   //  ]
@@ -242,6 +307,10 @@ export class AppComponent {
     const bottomRight = document.getElementsByClassName("formSquare__handler--bottomRight")[0];
     bottomRight?.remove()
   }
+  removeMiddleBottomPoint() {
+    const middleBottom = document.getElementsByClassName("formSquare__handler--middleBottom")[0];
+    middleBottom?.remove()
+  }
   addBottomRightPoint() {
     const bottomRight = document.createElement("div");
     bottomRight.classList.add('formSquare__handler--bottomRight')
@@ -256,6 +325,9 @@ export class AppComponent {
     this.active.node.style.left = '0px'
     this.active.node.style.top = '0px'
     this.active.node.style.width = '100%'
+  }
+  unstickFromTop() {
+    this.active.node.style.width = '100px'
   }
   initiateSquare() {
     this.active.name = Math.random().toFixed(7)
